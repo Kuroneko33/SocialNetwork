@@ -52,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\EFFriendRequestsRepository.cs" />
     <Compile Include="Implementations\EFFriendsRepository.cs" />
     <Compile Include="Implementations\EFUsersRepository.cs" />
+    <Compile Include="Interfaces\IFriendRequestsRepository.cs" />
     <Compile Include="Interfaces\IFriendsRepository.cs" />
     <Compile Include="Interfaces\IUsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
