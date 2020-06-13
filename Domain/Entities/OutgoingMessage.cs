@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
-    class OutgoingMessage
+    public class OutgoingMessage
     {
         public int Id { get; set; }
         public int UserId { get; set; }

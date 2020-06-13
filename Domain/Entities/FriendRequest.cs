@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    class FriendRequest
+    public class FriendRequest
     {
         public int Id { get; set; }
         public int UserId { get; set; }

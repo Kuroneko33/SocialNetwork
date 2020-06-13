@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    class IncomingMessage
+    public class IncomingMessage
     {
         public int Id { get; set; }
         public int UserId { get; set; }
