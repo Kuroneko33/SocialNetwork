@@ -1,11 +1,16 @@
 ﻿using Domain.Entities;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class EFDbConntext : DbContext
+    public class EFDbContext : DbContext
     {
-        public EFDbConntext(string connectionString)
+        public EFDbContext(string connectionString)
         {
             Database.Connection.ConnectionString = connectionString;
         }

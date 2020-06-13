@@ -11,10 +11,10 @@ namespace BusinessLogic.Implementations
 {
     public class EFUsersRepository : IUsersRepository
     {
-        private EFDbConntext conntext;
-        public EFUsersRepository(EFDbConntext conntext)
+        private EFDbContext context;
+        public EFUsersRepository(EFDbContext context)
         {
-            this.conntext = conntext;
+            this.context = context;
         }
 
         public void CreateUser(string userName, string password, string email, string firstname, string lastName, string middleName)
@@ -33,7 +33,7 @@ namespace BusinessLogic.Implementations
 
         public MembershipUser GetMembershipUserByName(string userName)
         {
-            User user = conntext.Users.FirstOrDefault(x => x.UserName == userName);
+            User user = context.Users.FirstOrDefault(x => x.UserName == userName);
             if (user != null)
             {
                 return new MembershipUser(
@@ -57,17 +57,17 @@ namespace BusinessLogic.Implementations
 
         public User GetUserById(int id)
         {
-            return conntext.Users.FirstOrDefault(x => x.Id == id);
+            return context.Users.FirstOrDefault(x => x.Id == id);
         }
 
         public User GetUserByName(string userName)
         {
-            return conntext.Users.FirstOrDefault(x => x.UserName == userName);
+            return context.Users.FirstOrDefault(x => x.UserName == userName);
         }
 
         public string GetUserNameByEmail(string email)
         {
-            User user = conntext.Users.FirstOrDefault(x => x.Email == email);
+            User user = context.Users.FirstOrDefault(x => x.Email == email);
             if (user != null)
             {
                 return user.UserName;
@@ -77,21 +77,21 @@ namespace BusinessLogic.Implementations
 
         public IEnumerable<User> GetUsers()
         {
-            return conntext.Users;
+            return context.Users;
         }
 
         public void SaveUser(User user)
         {
             if (user.Id == 0)
-                conntext.Users.Add(user);
+                context.Users.Add(user);
             else
-                conntext.Entry(user).State = EntityState.Modified;
-            conntext.SaveChanges();
+                context.Entry(user).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         public bool ValidateUser(string userName, string password)
         {
-            User user = conntext.Users.FirstOrDefault(x => x.UserName == userName);
+            User user = context.Users.FirstOrDefault(x => x.UserName == userName);
             if (user != null && user.Password == password)
             {
                 return true;
