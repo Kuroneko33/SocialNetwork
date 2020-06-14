@@ -28,6 +28,14 @@
         </div>
     </div>
     <div class="container body-content">
+        @if(User.Identity.IsAuthenticated)
+        {
+            <p>
+                @Html.ActionLink("Выход", "Logout", "Account")
+                <br />
+                @Html.ActionLink("Поиск", "Index", "Search")
+            </p>
+        }
         @RenderBody()
         <hr />
         <footer>
