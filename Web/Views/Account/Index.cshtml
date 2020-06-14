@@ -1,0 +1,25 @@
+﻿@using Web.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Добро пожаловать";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Добро пожаловать в нашу соцсеть</h2>
+<div>
+    @using(Html.BeginForm())
+    {
+        <p>>@Html.ValidationSummary(true)</p>
+        <p>
+            Логин: @Html.TextBoxFor(x => x.UserName) @Html.ValidationMessageFor(x => x.UserName)
+        </p>
+        <p>
+            Пароль: @Html.EditorFor(x => x.Passwprd) @Html.ValidationMessageFor(x => x.Passwprd)
+        </p>
+        <input type="submit" value="Вход" />
+    }
+    <p>
+        Если у вас еще нет аккаунта, то вы можете @Html.ActionLink("зарегистрироваться", "Register")
+    </p>
+</div>
+
