@@ -30,11 +30,13 @@
     <div class="container body-content">
         @if(User.Identity.IsAuthenticated)
         {
-            <p>
-                @Html.ActionLink("Выход", "Logout", "Account")
-                <br />
-                @Html.ActionLink("Поиск", "Index", "Search")
-            </p>
+        <p>
+            @Html.ActionLink("Выход", "Logout", "Account")
+            <br />
+            @Html.ActionLink("Мои друзья", "Index", "Friends")
+            <br />
+            @Html.ActionLink("Поиск", "Index", "Search")
+        </p>
         }
         @RenderBody()
         <hr />
