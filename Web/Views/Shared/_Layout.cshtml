@@ -16,8 +16,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Месенгеррррр", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Месенгер 2", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Месенгер", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             @if (!User.Identity.IsAuthenticated)
             {
@@ -35,7 +34,7 @@
                         <li>@Html.ActionLink("Мои друзья", "Index", "Friends")</li>
                         <li>@Html.ActionLink("Мои сообщения", "Index", "Messages")</li>
                         <li>@Html.ActionLink("Поиск", "Index", "Search")</li>
-                        <li>@Html.ActionLink("_Выход_", "Logout", "Account")</li>
+                        <li>@Html.ActionLink("Выход", "Logout", "Account")</li>
                     </ul>
                 </div>
             }
