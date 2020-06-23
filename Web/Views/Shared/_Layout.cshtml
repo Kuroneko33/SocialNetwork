@@ -19,26 +19,32 @@
                 @if (!User.Identity.IsAuthenticated)
                 {
                     @Html.ActionLink("Месенгер", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Шо", "About", "Account")</li>
-                            <li>@Html.ActionLink("Каво", "Contact", "Account")</li>
-                        </ul>
-                    </div>
                 }
                 @if (User.Identity.IsAuthenticated)
                 {
                     @Html.ActionLink("Месенгер", "Index", "Home", new { id = (int)Membership.GetUser().ProviderUserKey }, new { @class = "navbar-brand" })
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Мои друзья", "Index", "Friends")</li>
-                            <li>@Html.ActionLink("Мои сообщения", "Index", "Messages")</li>
-                            <li>@Html.ActionLink("Поиск", "Index", "Search")</li>
-                            <li>@Html.ActionLink("Выход", "Logout", "Account")</li>
-                        </ul>
-                    </div>
                 }
             </div>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Шо", "About", "Account")</li>
+                        <li>@Html.ActionLink("Каво", "Contact", "Account")</li>
+                    </ul>
+                </div>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Мои друзья", "Index", "Friends")</li>
+                        <li>@Html.ActionLink("Мои сообщения", "Index", "Messages")</li>
+                        <li>@Html.ActionLink("Поиск", "Index", "Search")</li>
+                        <li>@Html.ActionLink("Выход", "Logout", "Account")</li>
+                    </ul>
+                </div>
+            }
         </div>
     </div>
     <div class="container body-content">
