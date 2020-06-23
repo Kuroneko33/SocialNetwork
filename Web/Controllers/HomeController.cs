@@ -57,7 +57,6 @@ namespace Web.Controllers
                     string type = upload.ContentType;
                     type = type.Substring(type.LastIndexOf("/") + 1);
                     string fileName = "AvatarUserId" + id + "." + type;
-                    upload.SaveAs(Server.MapPath("~/Content/images/usersAvatars/" + fileName));
 
                     User user = dataManager.Users.GetUserById(id);
 
@@ -70,6 +69,7 @@ namespace Web.Controllers
                             fileInf.Delete();
                         }
                     }
+                    upload.SaveAs(Server.MapPath("~/Content/images/usersAvatars/" + fileName));
                     user.Photo = "~/Content/images/usersAvatars/" + fileName;
                     dataManager.Users.SaveUser(user);
                 }
