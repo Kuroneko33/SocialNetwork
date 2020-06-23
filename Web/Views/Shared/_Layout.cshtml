@@ -16,10 +16,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Месенгер", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             @if (!User.Identity.IsAuthenticated)
             {
+                @Html.ActionLink("Месенгер", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Шо", "About", "Account")</li>
@@ -29,6 +29,7 @@
             }
             @if (User.Identity.IsAuthenticated)
             {
+                @Html.ActionLink("Месенгер", "Index", "Home", new { id = (int)Membership.GetUser().ProviderUserKey }, new { @class = "navbar-brand" })
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Мои друзья", "Index", "Friends")</li>
@@ -45,6 +46,7 @@
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <a href='https://pngtree.com/so/аватар'>аватар png from pngtree.com</a>
         </footer>
     </div>
 

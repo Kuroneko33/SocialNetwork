@@ -10,6 +10,7 @@ namespace Domain
 {
     public class EFDbContext : DbContext
     {
+        public EFDbContext() : base("name=PrimaryConnectionString") { }
         public EFDbContext(string connectionString)
         {
             Database.Connection.ConnectionString = connectionString;

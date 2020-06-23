@@ -5,32 +5,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div style="border: 1px solid red; padding: 5px 5px 5px 5px;">
-    @if (Model.UserIsMe)
-    {
-        <div>Это вы!</div>
-    }
-    else if (Model.UserIsMyFriend)
-    {
-        <div>Этот пользователь у вас в друзьях. @Html.ActionLink("Написать сообщение", "NewMessage", "Messages", new { userToId = Model.User.Id }, null)
-            или
-            @Html.ActionLink("Удалить из друзей", "DeleteFriend", "Friends", new { id = Model.User.Id }, null)
-        </div>
-    }
-    else if (Model.FriendRequestIsSent)
-    {
-        <div>
-            Вы отправили заявку в друзья. Ожидайте решение пользователя.
-            @Html.ActionLink("Отменить свою заявку", "CancelFriendRequest", "Friends", new { id = Model.User.Id }, null)
-        </div>
-    }
-    else
-    {
-        <div>
-            @Html.ActionLink("Добавить в друзья", "AddFriendRequest", "Friends", new { id = Model.User.Id }, null)
-        </div>
-    }
-</div>
+@if (Model.UserIsMe)
+{
+    <div style="border: 1px solid red; padding: 5px 5px 5px 5px; margin: 5px 0px">Это вы!</div>
+}
+
+@if (Model.User.Photo != null)
+{
+    <img style="margin: 20px 0px; width:250px;height:250px;" src="@Url.Content(Model.User.Photo) " />
+}
+else
+{
+    <img style="margin: 20px 0px; width:250px;height:250px;" src="@Url.Content("~/Content/images/usersAvatars/noAvatar.png")" />
+}
+
+@if (Model.UserIsMe)
+{
+    <div class="form-group">
+        <label>Загрузить изображение</label>
+        <input type="file" name="uploadedFile" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Добавить" class="btn btn-outline-secondary" />
+    </div>
+}
+
 <p>
     Фамилия: <b>@Model.User.LastName</b>
 </p>
@@ -40,3 +39,30 @@
 <p>
     Отчество: <b>@Model.User.MiddleName</b>
 </p>
+
+@if (!Model.UserIsMe)
+{
+    <div style="border: 1px solid red; padding: 5px 5px 5px 5px; margin: 5px 0px">
+        @if (Model.UserIsMyFriend)
+        {
+            <div>
+                Этот пользователь у вас в друзьях. @Html.ActionLink("Написать сообщение", "NewMessage", "Messages", new { userToId = Model.User.Id }, null)
+                или
+                @Html.ActionLink("Удалить из друзей", "DeleteFriend", "Friends", new { id = Model.User.Id }, null)
+            </div>
+        }
+        else if (Model.FriendRequestIsSent)
+        {
+            <div>
+                Вы отправили заявку в друзья. Ожидайте решение пользователя.
+                @Html.ActionLink("Отменить свою заявку", "CancelFriendRequest", "Friends", new { id = Model.User.Id }, null)
+            </div>
+        }
+        else
+        {
+            <div>
+                @Html.ActionLink("Добавить в друзья", "AddFriendRequest", "Friends", new { id = Model.User.Id }, null)
+            </div>
+        }
+    </div>
+}
