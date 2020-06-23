@@ -52,7 +52,13 @@
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            <a href='https://pngtree.com/so/аватар'>аватар png from pngtree.com</a>
+            @if (Model is Web.Models.UserViewModel model)
+            {
+                if (model.User.Photo == null)
+                {
+                    <a href='https://pngtree.com/so/аватар'>аватар png from pngtree.com</a>
+                }
+            }
         </footer>
     </div>
 

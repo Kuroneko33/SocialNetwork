@@ -1,5 +1,7 @@
 ﻿using BusinessLogic;
 using Domain.Entities;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Web.Models;
@@ -41,6 +43,68 @@ namespace Web.Controllers
             };
             
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase upload)
+        {
+            if (ModelState.IsValid)
+            {
+                if (upload != null)
+                {
+                    int id = (int)Membership.GetUser().ProviderUserKey;
+
+                    string type = upload.ContentType;
+                    type = type.Substring(type.LastIndexOf("/") + 1);
+                    string fileName = "AvatarUserId" + id + "." + type;
+                    upload.SaveAs(Server.MapPath("~/Content/images/usersAvatars/" + fileName));
+
+                    User user = dataManager.Users.GetUserById(id);
+
+                    string oldPhoto = user.Photo;
+                    if (oldPhoto != null)
+                    {
+                        FileInfo fileInf = new FileInfo(Server.MapPath(oldPhoto));
+                        if (fileInf.Exists)
+                        {
+                            fileInf.Delete();
+                        }
+                    }
+                    user.Photo = "~/Content/images/usersAvatars/" + fileName;
+                    dataManager.Users.SaveUser(user);
+                }
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        [HttpPost]
+        public ActionResult Delete()
+        {
+            if (ModelState.IsValid)
+            {
+                    int id = (int)Membership.GetUser().ProviderUserKey;
+                    User user = dataManager.Users.GetUserById(id);
+
+                    string oldPhoto = user.Photo;
+                    if (oldPhoto != null)
+                    {
+                        FileInfo fileInf = new FileInfo(Server.MapPath(oldPhoto));
+                        if (fileInf.Exists)
+                        {
+                            fileInf.Delete();
+                        }
+                    }
+                    user.Photo = null;
+                    dataManager.Users.SaveUser(user);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
     }
 }
