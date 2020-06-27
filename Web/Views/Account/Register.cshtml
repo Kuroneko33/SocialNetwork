@@ -9,116 +9,56 @@
 <div>
     @using (Html.BeginForm())
     {
-        <div class="container">
-            <div class="row main">
-                <div class="panel-heading">
-                    <div class="panel-title text-center">
-                        <h1 class="title">Регистрация</h1>
-                        <hr />
-                    </div>
-                </div>
-                <div class="main-login main-center">
-                    <form class="form-horizontal" method="post" action="#">
-                        <p>
-                            @Html.ValidationSummary(true)
-                        </p>
-                        <div class="form-group">
-                            <label for="UsrtName" class="cols-sm-2 control-label">Ваш логин</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="UsrtName" id="UsrtName" placeholder="Enter your Login" />
-                                    @Html.ValidationMessageFor(x => x.UsrtName)
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="FirstName" class="cols-sm-2 control-label">Ваше имя</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="FirstName" id="FirstName" placeholder="Enter your Name" />
-                                    @Html.ValidationMessageFor(x => x.FirstName)
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="LastName" class="cols-sm-2 control-label">Ваша фамилия</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="LastName" id="LastName" placeholder="Enter your Last Name" />
-                                    @Html.ValidationMessageFor(x => x.LastName)
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="MiddleName" class="cols-sm-2 control-label">Ваше отчество</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="MiddleName" id="MiddleName" placeholder="Enter your Middle Name" />
-                                    @Html.ValidationMessageFor(x => x.MiddleName)
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Email" class="cols-sm-2 control-label">Ваш Email</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="Email" id="Email" placeholder="Enter your Email" />
-                                    @Html.ValidationMessageFor(x => x.Email)
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ConfirmEmail" class="cols-sm-2 control-label">Напишите Ваш Email еще раз</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="ConfirmEmail" id="ConfirmEmail" placeholder="Confirm your Email" />
-                                    @Html.ValidationMessageFor(x => x.ConfirmEmail)
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Password" class="cols-sm-2 control-label">Укажите Ваш пароль</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                    <input type="password" class="form-control" name="Password" id="Password" placeholder="Enter your Password" />
-                                    @Html.ValidationMessageFor(x => x.Password)
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ConfirmPassword" class="cols-sm-2 control-label">Укажите Ваш пароль еще раз</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                    <input type="password" class="form-control" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm your Password" />
-                                    @Html.ValidationMessageFor(x => x.ConfirmPassword)
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group ">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Регистрация</button>
-                        </div>
-                        <div class="login-register">
-                            <a href="index.php">Login</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Введите Ваш Email</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name@example.com">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Введите Ваш Email еще раз</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name@example.com">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Введите Ваш логин</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Введите ваш пароль</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Введите ваш пароль еще раз</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <input type="submit" value="Завершить регистрацию" />
+        <p>
+            @Html.ValidationSummary(true)
+        </p>
+        <p>
+            Логин: @Html.TextBoxFor(x => x.UsrtName) @Html.ValidationMessageFor(x => x.UsrtName)
+        </p>
+        <p>
+            Пароль: @Html.EditorFor(x => x.Password) @Html.ValidationMessageFor(x => x.Password)
+        </p>
+        <p>
+            Пароль еще раз: @Html.EditorFor(x => x.ConfirmPassword) @Html.ValidationMessageFor(x => x.ConfirmPassword)
+        </p>
+        <p>
+            Email: @Html.TextBoxFor(x => x.Email) @Html.ValidationMessageFor(x => x.Email)
+        </p>
+        <p>
+            Email еще раз: @Html.TextBoxFor(x => x.ConfirmEmail) @Html.ValidationMessageFor(x => x.ConfirmEmail)
+        </p>
+        <p>
+            Фамилия: @Html.TextBoxFor(x => x.LastName) @Html.ValidationMessageFor(x => x.LastName)
+        </p>
+        <p>
+            Имя: @Html.TextBoxFor(x => x.FirstName) @Html.ValidationMessageFor(x => x.FirstName)
+        </p>
+        <p>
+            Отчество: @Html.TextBoxFor(x => x.MiddleName) @Html.ValidationMessageFor(x => x.MiddleName)
+        </p>
+
     }
 </div>
