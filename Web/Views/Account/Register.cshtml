@@ -9,97 +9,29 @@
 <div>
     @using (Html.BeginForm())
     {
-        <div class="container">
-            <div class="row main">
-                <div class="panel-heading">
-                    <div class="panel-title text-center">
-                        <h1 class="title">Регистрация</h1>
-                        <hr />
-                    </div>
-                </div>
-                <div class="main-login main-center">
-                    <form class="form-horizontal" method="post" action="#">
-
-                        <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">Ваше имя</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter your Name" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">Ваша фамилия</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter your Name" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">Ваше отчество</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter your Name" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="cols-sm-2 control-label">Ваш Email</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="cols-sm-2 control-label">Напишите Ваш Email еще раз</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="cols-sm-2 control-label">Укажите Ваш пароль</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="confirm" class="cols-sm-2 control-label">Укажите Ваш пароль еще раз</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                    <input type="password" class="form-control" name="confirm" id="confirm" placeholder="Confirm your Password" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group ">
-                            <button type="button" class="btn btn-primary btn-lg btn-block login-button">Регистрация</button>
-                        </div>
-                        <div class="login-register">
-                            <a href="index.php">Login</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Введите Ваш Email</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name@example.com">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Введите Ваш Email еще раз</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name@example.com">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Введите Ваш логин</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Введите ваш пароль</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Введите ваш пароль еще раз</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <input type="submit" value="Завершить регистрацию" />
         <p>
             @Html.ValidationSummary(true)
         </p>
@@ -127,6 +59,6 @@
         <p>
             Отчество: @Html.TextBoxFor(x => x.MiddleName) @Html.ValidationMessageFor(x => x.MiddleName)
         </p>
-        <input type="submit" value="Завершить регистрацию" />
+
     }
 </div>
