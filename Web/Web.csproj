@@ -154,6 +154,7 @@
     <Content Include="App_Data\SocialNetworkDB_log.ldf">
       <DependentUpon>SocialNetworkDB.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\autentification.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />

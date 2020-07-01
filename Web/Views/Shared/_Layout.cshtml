@@ -9,60 +9,44 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggler pull-left" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    @Html.ActionLink("Месенгер", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color: white;" })
-                }
-                @if (User.Identity.IsAuthenticated)
-                {
+    @if (User.Identity.IsAuthenticated)
+    {
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggler pull-left" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                     @Html.ActionLink("Месенгер", "Index", "Home", new { id = (int)Membership.GetUser().ProviderUserKey }, new { @class = "navbar-brand", @style = "color: white;" })
-                }
-            </div>
-            @if (!User.Identity.IsAuthenticated)
-            {
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">@Html.ActionLink("Шо", "About", "Account", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;" })</li>
-                        <li class="nav-item">@Html.ActionLink("Каво", "Contact", "Account", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;" })</li>
-                    </ul>
                 </div>
-            }
-            @if (User.Identity.IsAuthenticated)
-            {
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Мои друзья", "Index", "Friends", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;"} )</li>
-                        <li>@Html.ActionLink("Мои сообщения", "Index", "Messages", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;"} )</li>
-                        <li>@Html.ActionLink("Поиск", "Index", "Search", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;"} )</li>
-                        <li>@Html.ActionLink("Выход", "Logout", "Account", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;"} )</li>
+                        <li>@Html.ActionLink("Мои друзья", "Index", "Friends", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;" })</li>
+                        <li>@Html.ActionLink("Мои сообщения", "Index", "Messages", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;" })</li>
+                        <li>@Html.ActionLink("Поиск", "Index", "Search", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;" })</li>
+                        <li>@Html.ActionLink("Выход", "Logout", "Account", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;" })</li>
                     </ul>
                 </div>
-            }
-        </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            @if (Model is Web.Models.UserViewModel model)
-            {
-                if (model.User.Photo == null)
+            </div>
+        </nav>
+    }
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                @if (Model is Web.Models.UserViewModel model)
                 {
-                    <a href='https://pngtree.com/so/аватар'>аватар png from pngtree.com</a>
+                    if (model.User.Photo == null)
+                    {
+                        <a href='https://pngtree.com/so/аватар'>аватар png from pngtree.com</a>
+                    }
                 }
-            }
-        </footer>
-    </div>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>
