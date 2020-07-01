@@ -1,5 +1,5 @@
 ﻿@using Web.Models
-@model LoginViewModel, RegisterViewModel
+@model LoginRegisterViewModel
 
 @{
     ViewBag.Title = "Добро пожаловать";
@@ -12,10 +12,10 @@
     {
 
         <p>
-            Логин: @Html.TextBoxFor(x => x.UserName) @Html.ValidationMessageFor(x => x.UserName)
+            Логин: @Html.TextBoxFor(x => x.Login.UserName) @Html.ValidationMessageFor(x => x.Login.UserName)
         </p>
         <p>
-            Пароль: @Html.EditorFor(x => x.Passwprd) @Html.ValidationMessageFor(x => x.Passwprd)
+            Пароль: @Html.EditorFor(x => x.Login.Password) @Html.ValidationMessageFor(x => x.Login.Password)
         </p>
         <input type="submit" value="Вход" />
     }
@@ -47,13 +47,13 @@
                         {
                             <div class="form-group">
                                 <label for="InputLogin">Логин</label>
-                                @Html.TextBoxFor(x => x.UserName, new { type = "text", id = "InputLogin", @class = "form-control" })
-                                @Html.ValidationMessageFor(x => x.UserName)
+                                @Html.TextBoxFor(x => x.Login.UserName, new { type = "text", id = "InputLogin", @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Login.UserName)
                             </div>
                             <div class="form-group">
                                 <label for="InputPassword">Пароль</label>
-                                @Html.TextBoxFor(x => x.Passwprd, new { type = "password", id = "InputPassword", @class = "form-control" })
-                                @Html.ValidationMessageFor(x => x.Passwprd)
+                                @Html.TextBoxFor(x => x.Login.Password, new { type = "password", id = "InputPassword", @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Login.Password)
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-default" value="Вход" />
@@ -70,42 +70,42 @@
                             <div class="form-group">
                                 <label for="FirstName">Введите Ваше имя</label>
                                 <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Example input">
-                                @Html.ValidationMessageFor(x => x.FirstName)
+                                @Html.ValidationMessageFor(x => x.Register.FirstName)
                             </div>
                             <div class="form-group">
                                 <label for="LastName">Введите Вашу фамилию</label>
                                 <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Example input">
-                                @Html.ValidationMessageFor(x => x.LastName)
+                                @Html.ValidationMessageFor(x => x.Register.LastName)
                             </div>
                             <div class="form-group">
                                 <label for="MiddleName">Введите Ваше отчество</label>
                                 <input type="text" class="form-control" id="MiddleName" name="MiddleName" placeholder="Example input">
-                                @Html.ValidationMessageFor(x => x.MiddleName)
+                                @Html.ValidationMessageFor(x => x.Register.MiddleName)
                             </div>
                             <div class="form-group">
                                 <label for="Email">Введите Ваш Email</label>
                                 <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="name@example.com">
-                                @Html.ValidationMessageFor(x => x.Email)
+                                @Html.ValidationMessageFor(x => x.Register.Email)
                             </div>
                             <div class="form-group">
                                 <label for="ConfirmEmail">Введите Ваш Email еще раз</label>
                                 <input type="email" class="form-control" id="ConfirmEmail" name="ConfirmEmail" aria-describedby="emailHelp" placeholder="name@example.com">
-                                @Html.ValidationMessageFor(x => x.ConfirmEmail)
+                                @Html.ValidationMessageFor(x => x.Register.ConfirmEmail)
                             </div>
                             <div class="form-group">
                                 <label for="UsrtName">Введите логин</label>
                                 <input type="text" class="form-control" id="UsrtName" name="UsrtName" placeholder="Example input">
-                                @Html.ValidationMessageFor(x => x.UsrtName)
+                                @Html.ValidationMessageFor(x => x.Register.UsrtName)
                             </div>
                             <div class="form-group">
                                 <label for="Password">Введите ваш пароль</label>
                                 <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
-                                @Html.ValidationMessageFor(x => x.Password)
+                                @Html.ValidationMessageFor(x => x.Register.Password)
                             </div>
                             <div class="form-group">
                                 <label for="ConfirmPassword">Введите ваш пароль еще раз</label>
                                 <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Password">
-                                @Html.ValidationMessageFor(x => x.ConfirmPassword)
+                                @Html.ValidationMessageFor(x => x.Register.ConfirmPassword)
                             </div>
                             <button type="submit" class="btn btn-secondary">Завершить регистрацию</button>
                         }

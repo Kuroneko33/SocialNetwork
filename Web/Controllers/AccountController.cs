@@ -23,7 +23,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (dataManager.MembershipProvider.ValidateUser(model.UserName, model.Passwprd))
+                if (dataManager.MembershipProvider.ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false);
                     return RedirectToAction("Index", "Home");

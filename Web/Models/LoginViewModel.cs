@@ -9,6 +9,6 @@ namespace Web.Models
 
         [Required(ErrorMessage = "*")]
         [DataType(DataType.Password)]
-        public string Passwprd { get; set; }
+        public string Password { get; set; }
     }
 }
