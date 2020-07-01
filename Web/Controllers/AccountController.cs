@@ -44,7 +44,7 @@ namespace Web.Controllers
             if (ModelState.IsValid)
             {
                 MembershipCreateStatus status = dataManager.MembershipProvider.CreateUser(
-                    model.UsrtName,
+                    model.UsrName,
                     model.Password,
                     model.Email,
                     model.FirstName,
