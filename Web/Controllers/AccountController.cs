@@ -19,14 +19,14 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(LoginRegisterViewModel lrmodel)
+        public ActionResult Index(LoginRegisterViewModel model)
         {
-            LoginViewModel model = lrmodel.Login;
+            LoginViewModel lModel = model.Login;
             if (ModelState.IsValid)
             {
-                if (dataManager.MembershipProvider.ValidateUser(model.UserName, model.Password))
+                if (dataManager.MembershipProvider.ValidateUser(lModel.UserName, lModel.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false);
+                    FormsAuthentication.SetAuthCookie(lModel.UserName, false);
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Неудачная попытка входа на сайт");
@@ -40,18 +40,18 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(LoginRegisterViewModel lrmodel)
+        public ActionResult Register(LoginRegisterViewModel model)
         {
-            RegisterViewModel model = lrmodel.Register;
+            RegisterViewModel rModel = model.Register;
             if (ModelState.IsValid)
             {
                 MembershipCreateStatus status = dataManager.MembershipProvider.CreateUser(
-                    model.UsrName,
-                    model.Password,
-                    model.Email,
-                    model.FirstName,
-                    model.LastName,
-                    model.MiddleName);
+                    rModel.UsrName,
+                    rModel.Password,
+                    rModel.Email,
+                    rModel.FirstName,
+                    rModel.LastName,
+                    rModel.MiddleName);
                 if (status == MembershipCreateStatus.Success)
                     return View("Success");
                 ModelState.AddModelError("", GetMembershipCreateStatusResultText(status));
