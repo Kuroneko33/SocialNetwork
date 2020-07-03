@@ -19,8 +19,9 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(LoginViewModel model)
+        public ActionResult Index(LoginRegisterViewModel lrmodel)
         {
+            LoginViewModel model = lrmodel.Login;
             if (ModelState.IsValid)
             {
                 if (dataManager.MembershipProvider.ValidateUser(model.UserName, model.Password))
@@ -39,8 +40,9 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterViewModel model)
+        public ActionResult Register(LoginRegisterViewModel lrmodel)
         {
+            RegisterViewModel model = lrmodel.Register;
             if (ModelState.IsValid)
             {
                 MembershipCreateStatus status = dataManager.MembershipProvider.CreateUser(
