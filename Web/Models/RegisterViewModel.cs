@@ -5,7 +5,7 @@ namespace Web.Models
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "*")]
-        public string UsrtName { get; set; }
+        public string UsrName { get; set; }
     
         [Required(ErrorMessage = "*")]
         [DataType(DataType.Password)]

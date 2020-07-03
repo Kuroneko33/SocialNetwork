@@ -30,19 +30,8 @@
             </div>
         </nav>
     }
-        <div class="container body-content">
+        <div class="body-content">
             @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-                @if (Model is Web.Models.UserViewModel model)
-                {
-                    if (model.User.Photo == null)
-                    {
-                        <a href='https://pngtree.com/so/аватар'>аватар png from pngtree.com</a>
-                    }
-                }
-            </footer>
         </div>
 
         @Scripts.Render("~/bundles/jquery")
