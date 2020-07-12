@@ -32,7 +32,7 @@ namespace Web.Controllers
                 if (dataManager.MembershipProvider.ValidateUser(lModel.UserName, lModel.Password))
                 {
                     FormsAuthentication.SetAuthCookie(lModel.UserName, false);
-                    return View(model);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             ModelState.AddModelError("", "Неудачная попытка входа на сайт");

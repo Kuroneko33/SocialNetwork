@@ -6,36 +6,27 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <meta charset="utf-8">
 </head>
 <body>
     @if (User.Identity.IsAuthenticated)
     {
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggler pull-left" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    @Html.ActionLink("Месенгер", "Index", "Home", new { id = (int)Membership.GetUser().ProviderUserKey }, new { @class = "navbar-brand", @style = "color: white;" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Мои друзья", "Index", "Friends", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;" })</li>
-                        <li>@Html.ActionLink("Мои сообщения", "Index", "Messages", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;" })</li>
-                        <li>@Html.ActionLink("Поиск", "Index", "Search", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;" })</li>
-                        <li>@Html.ActionLink("Выход", "Logout", "Account", new { area = "" }, new { @class = "nav-link", @style = "color: cyan;" })</li>
-                    </ul>
-                </div>
+        <div class="row">
+            @RenderPage("~/Views/Home/SideBar.cshtml")
+            <div class="col-md-7 col-sm-7 col-6" id="" style="background-color: white !important;">
+                @RenderBody()
             </div>
-        </nav>
+        </div>
     }
+    else
+    {
         <div class="body-content">
             @RenderBody()
         </div>
+    }
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
 </html>

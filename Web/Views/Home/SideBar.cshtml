@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/Content/opl.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+                integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+                integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+                crossorigin="anonymous"></script>
+    </head>
+    <body>
+        @{
+            int userId = (int)Membership.GetUser().ProviderUserKey;
+            Domain.Entities.User user = new Domain.EFDbContext().Users.FirstOrDefault(x => x.Id == userId);
+        }
+        <div class="col-md-5 col-sm-5 col-6" id="side">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-4">
+                        <a href="/Home/Index/">
+                            <img src="@Url.Content(user.Photo)">
+                        </a>
+                    </div>
+                    <div class="col-md-9 col-sm-8 col-8 justify-content-center align-self-center">
+                        <input class="form align-middle center-block" type="text" placeholder="Поиск">
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-md-12 col-sm-12 col-12 text-white" style="margin: 7px;"><h5>@user.LastName @user.FirstName @user.MiddleName</h5></div>
+                </div>
+
+                <div class="w-100"></div>
+                <hr>
+                <div class="wrap">
+                    <div class="col-6 col-sm-6 hov">@Html.ActionLink("друзья", "Index", "Friends", new { area = "" }, new { @class = "btn hov" })</div>
+                    <div class="w-100"></div>
+                    <div class="col-6 col-sm-6 hov">@Html.ActionLink("сообщения", "Index", "Messages", new { area = "" }, new { @class = "btn hov" })</div>
+                    <div class="w-100"></div>
+                    <div class="col-6 col-sm-6 hov">@Html.ActionLink("Выход", "Logout", "Account", new { area = "" }, new { @class = "btn hov" })</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+    window.onload = function () {
+        let wrap = $('.wrap')[0];
+        for (let i = 0; i < wrap.children.length; ++i) {
+            if (i == localStorage.getItem('lastTab')) {
+                wrap.children[i].className = "col-6 col-sm-6 hov activeDiv";
+                wrap.children[i].children[0].className = "btn hov activeLink";
+            }
+        }
+    }
+    $('.btn').on('click', function () {
+        let link = $(this).get()[0].attributes[0].textContent = "btn hov activeLink";
+        let div = $(this).get()[0].parentElement.className = "col-6 col-sm-6 hov activeDiv";
+        let container = $(this).get()[0].parentElement.parentElement;
+        for (let i = 0; i < container.children.length; ++i) {
+            if (container.children[i].className != "w-100" && container.children[i].className == "col-6 col-sm-6 hov activeDiv"
+                && container.children[i].firstChild != $(this).get()[0]) {
+                container.children[i].classList.remove("activeDiv");
+                container.children[i].firstChild.classList.remove("activeLink");
+            }
+            else if (container.children[i].firstChild == $(this).get()[0]) localStorage.setItem('lastTab', i);
+        }
+    })
+</script>
