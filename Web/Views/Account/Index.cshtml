@@ -52,10 +52,11 @@
                         }
                     </div>
                 </div>
-                    <div role="tabpanel" class="tab-pane fade" id="Section2">
-
-                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
-                        {
+            
+                <div role="tabpanel" class="tab-pane fade" id="Section2">
+                    <div class="col-md-offset-3 col-md-5  col-sm-offset-3 col-sm-9 col-xs-offset-1 col-xs-11">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
                         <div class="form-group">
                             <label for="FirstName">
                                 Введите Ваше имя
@@ -112,17 +113,14 @@
                             </label>
                             <input type="password" class="form-control" id="Register.ConfirmPassword" name="Register.ConfirmPassword">
                         </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-secondary">Завершить регистрацию</button>
-                                <br />
-                                <h5 style="color:red">@Html.ValidationSummary(true)</h5>
-                            </div>
-                        }
-                    </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-secondary">Завершить регистрацию</button>
+                            <br />
+                            <h5 style="color:red">@Html.ValidationSummary(true)</h5>
+                        </div>
+                    }
                 </div>
             </div>
-
-
-                </div><!-- /.col-md-offset-3 col-md-6 -->
-    </div><!-- /.row -->
-</div><!-- /.container -->
+        </div>
+    </div>
+</div>
