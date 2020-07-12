@@ -1,6 +1,7 @@
 ﻿using BusinessLogic;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.SessionState;
 using Web.Models;
 
 namespace Web.Controllers
@@ -13,30 +14,29 @@ namespace Web.Controllers
             this.dataManager = dataManager;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult Index(LoginRegisterViewModel model)
         {
             LoginViewModel lModel = model.Login;
+            if (lModel == null)
+            {
+                if (TempData["ViewData"] != null)
+                {
+                    model = TempData["Model"] as LoginRegisterViewModel;
+                    ViewData = (ViewDataDictionary)TempData["ViewData"];
+                }
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
                 if (dataManager.MembershipProvider.ValidateUser(lModel.UserName, lModel.Password))
                 {
                     FormsAuthentication.SetAuthCookie(lModel.UserName, false);
-                    return RedirectToAction("Index", "Home");
+                    return View(model);
                 }
-                ModelState.AddModelError("", "Неудачная попытка входа на сайт");
             }
+            ModelState.AddModelError("", "Неудачная попытка входа на сайт");
             return View(model);
-        }
-
-        public ActionResult Register()
-        {
-            return View();
         }
 
         [HttpPost]
@@ -53,10 +53,13 @@ namespace Web.Controllers
                     rModel.LastName,
                     rModel.MiddleName);
                 if (status == MembershipCreateStatus.Success)
-                    return View("Success");
+                    return RedirectToAction("Index", "Home");
                 ModelState.AddModelError("", GetMembershipCreateStatusResultText(status));
             }
-            return View(model);
+            ModelState.AddModelError("", "Неудачная попытка регистрации на сайте \nпроверьте отмеченные поля");
+            TempData["Model"] = model;
+            TempData["ViewData"] = ViewData;
+            return RedirectToAction("Index", "Home", model);
         }
 
         public ActionResult Logout()
