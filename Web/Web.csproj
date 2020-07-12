@@ -299,7 +299,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Home\SideBar.cshtml" />
+    <Content Include="Views\Shared\SideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\images\usersAvatars\" />
