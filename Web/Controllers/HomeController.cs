@@ -106,5 +106,10 @@ namespace Web.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public ActionResult SideBar()
+        {
+            return RedirectToAction("Index");
+        }
     }
 }
