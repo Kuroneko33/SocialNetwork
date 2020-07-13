@@ -12,7 +12,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="row">
-            @RenderPage("~/Views/Home/SideBar.cshtml")
+            @RenderPage("~/Views/Shared/SideBar.cshtml")
             <div class="col-md-7 col-sm-7 col-6" id="" style="background-color: white !important;">
                 @RenderBody()
             </div>
