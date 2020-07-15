@@ -34,15 +34,15 @@
                     @if (Model.UserIsMe)
                     {
                         <div class="form-group">
-                            <label>Загрузить изображение</label>
-                            @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data", style = "float: left" }))
                             {
-                                <input type="file" name="upload" />
+                                <input type="file" name="upload" id="selectedFile" style="display: none;"/>
+                                <input type="button" value="Выбрать" onclick="document.getElementById('selectedFile').click();"/>
                                 <input type="submit" value="Загрузить" />
                             }
-                            @using (Html.BeginForm("Delete", "Home"))
+                            @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { style = "float: right" }))
                             {
-                                <input type="submit" value="Удалить" />
+                                <input type="submit" value="Удалить"/>
                             }
                         </div>
                     }

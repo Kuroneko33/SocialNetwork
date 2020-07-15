@@ -21,6 +21,10 @@
         @{
             int userId = (int)Membership.GetUser().ProviderUserKey;
             Domain.Entities.User user = new Domain.EFDbContext().Users.FirstOrDefault(x => x.Id == userId);
+            if (user.Photo == null)
+            {
+                user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+            }
         }
         <div class="col-md-5 col-sm-5 col-6" id="side">
             <div class="container">
