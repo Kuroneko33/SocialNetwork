@@ -46,174 +46,66 @@
                             }
                         </div>
                     }
+                    else if (Model.UserIsMyFriend)
+                    {
+                        <div class="text-white">
+                            Этот пользователь у вас в друзьях. <br />
+                            <button onclick="location.href='@Url.Action("NewMessage", "Messages", new { userToId = Model.User.Id }, null)'">Написать сообщение</button>
+                            или
+                            <button onclick="location.href='@Url.Action("DeleteFriend", "Friends", new { id = Model.User.Id }, null)'">Удалить из друзей</button>
+                        </div>
+                    }
+                    else if (Model.FriendRequestIsSent)
+                    {
+                        <div class="text-white">
+                            Вы отправили заявку в друзья. <br />
+                            Ожидайте решение пользователя. <br />
+                            <button onclick="location.href='@Url.Action("CancelFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Отменить свою заявку</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-white">
+                            <button onclick="location.href='@Url.Action("AddFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Добавить в друзья</button>
+                        </div>
+                    }
                 </div>
                 <div class="info  img-thumbnail">
-                    <form>
-                        <div class="form-group">
-                            <h5 class="text-white name">Фамилия Имя Отчество</h5>
-                            @Html.TextAreaFor(x => x.User.LastName)
-                            @Html.TextAreaFor(x => x.User.FirstName)
-                            @Html.TextAreaFor(x => x.User.MiddleName)
-                        </div>
-                        <hr>
-                        <div class="form-group">
-                            <label class="text-white" for="City">Дата рождения</label><br />
-                            <select id="BYear" name="BYear" onchange="setDay()"></select>
-                            <select id="BMonth" name="BMonth" onchange="setDay()"></select>
-                            <select id="BDay" name="BDay"></select>
-                        </div>
-                        <div class="form-group">
-                            <label class="text-white" for="City">Телефон</label>
-                            <input type="text" class="form-control" id="City" name="City" placeholder="Телефон">
-                        </div>
-                        <div class="form-group">
-                            <label class="text-white" for="City">Город</label>
-                            <input type="text" class="form-control" id="City" name="City" placeholder="Город">
-                        </div>
-                        <div class="form-group">
-                            <label class="text-white" for="Email">Email</label>
-                            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email" value="@Model.User.Email">
-                        </div>
-                        <div class="form-group">
-                            <label class="text-white" for="Password">Пароль</label>
-                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Пароль" value="@Model.User.Password">
-                        </div>
-                        <div class="form-group">
-                            <label class="text-white" for="Password">Повторить пароль</label>
-                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Повторить пароль" value="@Model.User.Password">
-                        </div>
+                    <h5 class="text-white name">@Model.User.LastName @Model.User.FirstName @Model.User.MiddleName</h5>
+                    <hr>
+                    <!-- Переделывай и меняй лейблы и h6 на что хочешь-->
+                    @if (true)
+                    {
+                        <label class="text-white" for="BDate">Дата рождения</label>
+                        <h6 class="text-white" id="BDate" name="BDate">36 хуенваря 2010</h6>
+                        <br />
+                    }
+                    @if (true)
+                    {
+                        <label class="text-white" for="Phone">Телефон</label>
+                        <h6 class="text-white" id="Phone" name="Phone">+375 lalala</h6>
+                        <br />
+                    }
+                    @if (true)
+                    {
+                        <label class="text-white" for="City">Город</label>
+                        <h6 class="text-white" id="City" name="City">Полоцк</h6>
+                        <br />
+                    }
+                    @if (@Model.User.Email != null)
+                    {
+                        <label class="text-white" for="Email">Email</label>
+                        <h6 class="text-white" id="Email" name="Email">@Model.User.Email</h6>
+                        <br />
+                    }
+                    @if (Model.UserIsMe)
+                    {
                         <div style="text-align: center">
-                            <input type="submit" value="Сохранить" />
+                            <button onclick="location.href='@Url.Action("Index", "Edit")'">Редактировать</button>
                         </div>
-                    </form>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    let months = [
-        "Январь",
-        "Февраль",
-        "Март",
-        "Апрель",
-        "Май",
-        "Июнь",
-        "Июль",
-        "Август",
-        "Сентябрь",
-        "Октябрь",
-        "Ноябрь",
-        "Декабрь"
-    ];
-
-    let df = document.createDocumentFragment();
-
-    (function () {
-
-        //year
-        let curYear = new Date().getUTCFullYear();
-        for (var i = curYear - 150; i <= curYear + 150; i++) {
-            let option = document.createElement('option');
-            option.value = i;
-            option.appendChild(document.createTextNode(i));
-            df.appendChild(option);
-        }
-        document.getElementById("BYear").appendChild(df);
-
-        //month
-        for (let month of months) {
-            let option = document.createElement('option');
-            option.value = month;
-            option.appendChild(document.createTextNode(month));
-            df.appendChild(option);
-        }
-        document.getElementById("BMonth").appendChild(df);
-
-        //day
-        setDay();
-    }());
-
-    function setDay() {
-        let dayCount = 31;
-        let selMonth = document.getElementById("BMonth").value;
-        let selYear = document.getElementById("BYear").value;
-        let month30 = ["Январь", "Апрель", "Июнь", "Сентябрь", "Ноябрь"];
-        for (let month of month30) {
-            if (selMonth == month) {
-                dayCount = 30
-            }
-        }
-        if (selMonth == "Февраль") {
-
-            if (isLeapYear(selYear)) {
-                dayCount = 29;
-            }
-            else {
-                dayCount = 28;
-            }
-        }
-        document.getElementById("BDay").innerHTML = '';
-        for (let i = 1; i <= dayCount; i++) {
-            let option = document.createElement('option');
-            option.value = i;
-            option.appendChild(document.createTextNode(i));
-            df.appendChild(option);
-        }
-        document.getElementById("BDay").appendChild(df);
-    }
-
-    function isLeapYear(year) {
-        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
-    }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@if (Model.UserIsMe)
-{
-    <div style="border: 1px solid red; padding: 5px 5px 5px 5px; margin: 5px 0px">Это вы!</div>
-}
-
-
-
-
-
-@if (!Model.UserIsMe)
-{
-    <div style="border: 1px solid red; padding: 5px 5px 5px 5px; margin: 5px 0px">
-        @if (Model.UserIsMyFriend)
-        {
-            <div>
-                Этот пользователь у вас в друзьях. @Html.ActionLink("Написать сообщение", "NewMessage", "Messages", new { userToId = Model.User.Id }, null)
-                или
-                @Html.ActionLink("Удалить из друзей", "DeleteFriend", "Friends", new { id = Model.User.Id }, null)
-            </div>
-        }
-        else if (Model.FriendRequestIsSent)
-        {
-            <div>
-                Вы отправили заявку в друзья. Ожидайте решение пользователя.
-                @Html.ActionLink("Отменить свою заявку", "CancelFriendRequest", "Friends", new { id = Model.User.Id }, null)
-            </div>
-        }
-        else
-        {
-            <div>
-                @Html.ActionLink("Добавить в друзья", "AddFriendRequest", "Friends", new { id = Model.User.Id }, null)
-            </div>
-        }
-    </div>
-}

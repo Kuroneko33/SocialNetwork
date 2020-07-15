@@ -1,0 +1,152 @@
+﻿@using Web.Models
+@model UserViewModel
+@{
+    ViewBag.Title = Model.User.LastName + " " + Model.User.FirstName + " " + Model.User.MiddleName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/page.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-12">
+            <div class="row">
+                <div class="info  img-thumbnail">
+                    <form style="width: 100vh">
+                        <h5 class="text-white name">Редактирование</h5>
+                        <hr>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="text-white" for="LastName">Фамилия</label>
+                                <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Фамилия" value="@Model.User.LastName">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-white" for="FirstName">Имя</label>
+                                <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Имя" value="@Model.User.FirstName">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-white" for="MiddleName">Отчество</label>
+                                <input type="text" class="form-control" id="MiddleName" name="MiddleName" placeholder="Отчество" value="@Model.User.MiddleName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-white" for="BDate">Дата рождения</label><br />
+                            <select id="BYear" name="BYear" onchange="setDay()"></select>
+                            <select id="BMonth" name="BMonth" onchange="setDay()"></select>
+                            <select id="BDay" name="BDay"></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-white" for="Phone">Телефон</label>
+                            <input type="text" class="form-control" id="Phone" name="Phone" placeholder="Телефон">
+                        </div>
+                        <div class="form-group">
+                            <label class="text-white" for="City">Город</label>
+                            <input type="text" class="form-control" id="City" name="City" placeholder="Город">
+                        </div>
+                        <div class="form-group">
+                            <label class="text-white" for="Email">Email</label>
+                            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email" value="@Model.User.Email">
+                        </div>
+                        <div class="form-group">
+                            <label class="text-white" for="Password">Пароль</label>
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Пароль" value="@Model.User.Password">
+                        </div>
+                        <div class="form-group">
+                            <label class="text-white" for="ConfirmPassword">Подтвердите пароль</label>
+                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Подтвердите пароль" value="@Model.User.Password">
+                        </div>
+                        <div style="text-align: center">
+                            <input type="submit" value="Сохранить" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let months = [
+        "Январь",
+        "Февраль",
+        "Март",
+        "Апрель",
+        "Май",
+        "Июнь",
+        "Июль",
+        "Август",
+        "Сентябрь",
+        "Октябрь",
+        "Ноябрь",
+        "Декабрь"
+    ];
+
+    let df = document.createDocumentFragment();
+
+    (function () {
+
+        //year
+        let curYear = new Date().getUTCFullYear();
+        for (var i = curYear - 150; i <= curYear + 150; i++) {
+            let option = document.createElement('option');
+            option.value = i;
+            option.appendChild(document.createTextNode(i));
+            df.appendChild(option);
+        }
+        document.getElementById("BYear").appendChild(df);
+
+        //month
+        for (let month of months) {
+            let option = document.createElement('option');
+            option.value = month;
+            option.appendChild(document.createTextNode(month));
+            df.appendChild(option);
+        }
+        document.getElementById("BMonth").appendChild(df);
+
+        //day
+        setDay();
+    }());
+
+    function setDay() {
+        let dayCount = 31;
+        let selMonth = document.getElementById("BMonth").value;
+        let selYear = document.getElementById("BYear").value;
+        let month30 = ["Январь", "Апрель", "Июнь", "Сентябрь", "Ноябрь"];
+        for (let month of month30) {
+            if (selMonth == month) {
+                dayCount = 30
+            }
+        }
+        if (selMonth == "Февраль") {
+
+            if (isLeapYear(selYear)) {
+                dayCount = 29;
+            }
+            else {
+                dayCount = 28;
+            }
+        }
+        document.getElementById("BDay").innerHTML = '';
+        for (let i = 1; i <= dayCount; i++) {
+            let option = document.createElement('option');
+            option.value = i;
+            option.appendChild(document.createTextNode(i));
+            df.appendChild(option);
+        }
+        document.getElementById("BDay").appendChild(df);
+    }
+
+    function isLeapYear(year) {
+        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
+    }
+</script>
