@@ -1,7 +1,7 @@
 ﻿@using Web.Models
-@model UserViewModel
+@model EditViewModel
 @{
-    ViewBag.Title = Model.User.LastName + " " + Model.User.FirstName + " " + Model.User.MiddleName;
+    ViewBag.Title = Model.LastName + " " + Model.FirstName + " " + Model.MiddleName;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" type="text/css" href="~/Content/page.css">
@@ -22,53 +22,80 @@
         <div class="col-md-12 col-sm-12 col-12">
             <div class="row">
                 <div class="info  img-thumbnail">
-                    <form style="width: 100vh">
+                    @using (Html.BeginForm("Save", "Edit", FormMethod.Get, new { @class = "form-horizontal", style = "width: 100vh" }))
+                    {
                         <h5 class="text-white name">Редактирование</h5>
+                        <h6 style="color:red">@Html.ValidationSummary(true)</h6>
                         <hr>
                         <div class="form-group">
                             <div class="form-group">
-                                <label class="text-white" for="LastName">Фамилия</label>
-                                <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Фамилия" value="@Model.User.LastName">
+                                <label class="text-white" for="LastName">
+                                    Фамилия
+                                    <sup style="color:red">@Html.ValidationMessageFor(x => x.LastName)</sup>
+                                </label>
+                                <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Фамилия" value="@Model.LastName">
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="FirstName">Имя</label>
-                                <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Имя" value="@Model.User.FirstName">
+                                <label class="text-white" for="FirstName">
+                                    Имя
+                                    <sup style="color:red">@Html.ValidationMessageFor(x => x.FirstName)</sup>
+                                </label>
+                                <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Имя" value="@Model.FirstName">
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="MiddleName">Отчество</label>
-                                <input type="text" class="form-control" id="MiddleName" name="MiddleName" placeholder="Отчество" value="@Model.User.MiddleName">
+                                <label class="text-white" for="MiddleName">
+                                    Отчество
+                                    <sup style="color:red">@Html.ValidationMessageFor(x => x.MiddleName)</sup>
+                                </label>
+                                <input type="text" class="form-control" id="MiddleName" name="MiddleName" placeholder="Отчество" value="@Model.MiddleName">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="text-white" for="BDate">Дата рождения</label><br />
-                            <select id="BYear" name="BYear" onchange="setDay()"></select>
-                            <select id="BMonth" name="BMonth" onchange="setDay()"></select>
+                            <select id="BYear" name="BYear" onchange="calcDays()"></select>
+                            <select id="BMonth" name="BMonth" onchange="calcDays()"></select>
                             <select id="BDay" name="BDay"></select>
                         </div>
                         <div class="form-group">
                             <label class="text-white" for="Phone">Телефон</label>
-                            <input type="text" class="form-control" id="Phone" name="Phone" placeholder="Телефон">
+                            <input type="text" class="form-control" id="Phone" name="Phone" placeholder="Телефон" value="@Model.Phone">
                         </div>
                         <div class="form-group">
                             <label class="text-white" for="City">Город</label>
-                            <input type="text" class="form-control" id="City" name="City" placeholder="Город">
+                            <input type="text" class="form-control" id="City" name="City" placeholder="Город" value="@Model.City">
                         </div>
                         <div class="form-group">
-                            <label class="text-white" for="Email">Email</label>
-                            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email" value="@Model.User.Email">
+                            <label class="text-white" for="Email">
+                                UserName
+                                <sup style="color:red">@Html.ValidationMessageFor(x => x.UserName)</sup>
+                            </label>
+                            <input type="text" class="form-control" id="UserName" name="UserName" placeholder="UserName" value="@Model.UserName">
                         </div>
                         <div class="form-group">
-                            <label class="text-white" for="Password">Пароль</label>
-                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Пароль" value="@Model.User.Password">
+                            <label class="text-white" for="Email">
+                                Email
+                                <sup style="color:red">@Html.ValidationMessageFor(x => x.Email)</sup>
+                            </label>
+                            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email" value="@Model.Email">
                         </div>
                         <div class="form-group">
-                            <label class="text-white" for="ConfirmPassword">Подтвердите пароль</label>
-                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Подтвердите пароль" value="@Model.User.Password">
+                            <label class="text-white" for="Password">
+                                Пароль
+                                <sup style="color:red">@Html.ValidationMessageFor(x => x.Password)</sup>
+                            </label>
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Пароль" value="@Model.Password">
+                        </div>
+                        <div class="form-group">
+                            <label class="text-white" for="ConfirmPassword">
+                                Подтвердите пароль
+                                <sup style="color:red">@Html.ValidationMessageFor(x => x.ConfirmPassword)</sup>
+                            </label>
+                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Подтвердите пароль" value="@Model.ConfirmPassword">
                         </div>
                         <div style="text-align: center">
-                            <input type="submit" value="Сохранить" />
+                            <input type="submit" value="Сохранить"/>
                         </div>
-                    </form>
+                    }
                 </div>
             </div>
         </div>
@@ -89,7 +116,6 @@
         "Ноябрь",
         "Декабрь"
     ];
-
     let df = document.createDocumentFragment();
 
     (function () {
@@ -100,7 +126,7 @@
             let option = document.createElement('option');
             option.value = i;
             option.appendChild(document.createTextNode(i));
-            df.appendChild(option);
+            df.appendChild(option); calcDays
         }
         document.getElementById("BYear").appendChild(df);
 
@@ -114,10 +140,11 @@
         document.getElementById("BMonth").appendChild(df);
 
         //day
-        setDay();
+        calcDays();
+        load();
     }());
 
-    function setDay() {
+    function calcDays() {
         let dayCount = 31;
         let selMonth = document.getElementById("BMonth").value;
         let selYear = document.getElementById("BYear").value;
@@ -148,5 +175,11 @@
 
     function isLeapYear(year) {
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
+    }
+    function load()
+    {
+        document.getElementById("BYear").value = @Model.BYear;
+        document.getElementById("BMonth").value = @Model.BMonth;
+        document.getElementById("BDay").value = @Model.BDay;
     }
 </script>

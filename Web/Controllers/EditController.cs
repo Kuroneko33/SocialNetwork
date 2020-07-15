@@ -1,7 +1,5 @@
 ﻿using BusinessLogic;
 using Domain.Entities;
-using System.IO;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Web.Models;
@@ -17,36 +15,74 @@ namespace Web.Controllers
             this.dataManager = dataManager;
         }
 
-        public ActionResult Index(int id = 0)
+        public ActionResult Index()
         {
-            //Если в адрес Url не был представлен Id пользователя, то 
-            //явным образом вычисляем этот Id и
-            //перенаправляем пользователя на то же действие,
-            //однако добавляем в адрес вычисленный Id
-            if (id == 0)
-                return RedirectToAction("Index", new { id = Membership.GetUser().ProviderUserKey });
-
+            int id = (int)Membership.GetUser().ProviderUserKey;
             User user = dataManager.Users.GetUserById(id);
 
-            //Определение страницы по Id
-            UserViewModel model = new UserViewModel
+            EditViewModel model = new EditViewModel();
+            if (TempData["ViewData"] != null)
             {
-                User = user,
-                UserIsMe = id == (int)Membership.GetUser().ProviderUserKey,
-                UserIsMyFriend =
-                        dataManager.Friends.UsersAreFriends(
-                            (int)Membership.GetUser().ProviderUserKey, user.Id),
-                FriendRequestIsSent =
-                        dataManager.FriendRequests.RequestIsSent(
-                            user.Id,
-                            (int)Membership.GetUser().ProviderUserKey)
-            };
-            if (model.UserIsMe)
-            {
-                return View(model);
+                model = TempData["Model"] as EditViewModel;
+                ViewData = (ViewDataDictionary)TempData["ViewData"];
             }
             else
-                return RedirectToAction("Index", "Home");
+            {
+                //тут перевод инфы юзеров в этот формат из user.BDate
+                //int BDay = 0;
+                //string BMonth = "август";
+                //int BYear = 1999;
+
+                model = new EditViewModel
+                {
+                    UserName = user.UserName,
+                    Password = user.Password,
+                    ConfirmPassword = user.Password,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    MiddleName = user.MiddleName,
+                    //BDay = BDay,
+                    //BMonth = BMonth,
+                    //BYear = BYear,
+                    //Phone = user.Phone,
+                    //City = user.City
+                };
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Save(EditViewModel model, int BYear, string BMonth, int BDay)
+        {
+            int id = (int)Membership.GetUser().ProviderUserKey;
+            User user = dataManager.Users.GetUserById(id);
+
+            TempData["Model"] = model;
+            TempData["ViewData"] = ViewData;
+
+            if (ModelState.IsValid)
+            {
+                model.BYear = BYear;
+                model.BMonth = BMonth;
+                model.BDay = BDay;
+
+                user.UserName = model.UserName;
+                user.Password = model.Password;
+                user.Email = model.Email;
+                user.FirstName = model.FirstName;
+                user.MiddleName = model.MiddleName;
+                //user.BDate = посчитать;
+                //user.Phone = model.Phone;
+                //user.City = model.City;
+
+                dataManager.Users.SaveUser(user);
+                ModelState.AddModelError("", "Сохранение прошло успешно");
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "Не все обязательные параметры введены верно");
+            return RedirectToAction("Index");
         }
     }
 }
