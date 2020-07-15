@@ -1,0 +1,14 @@
+﻿.main_avatar {
+    height: 400px !important;
+    width: 400px !important;
+}
+
+.img-thumbnail {
+    padding: 20px !important;
+    background-color: rgb(55, 47, 88) !important;
+    border: none !important;
+}
+
+.info {
+    margin-left: 10px;
+}

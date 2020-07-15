@@ -30,8 +30,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 col-sm-4 col-4">
-                        <a href="/Home/Index/">
-                            <img src="@Url.Content(user.Photo)">
+                        <a href="/Home/Index/" onclick="myPage()">
+                            <img class="avatar" src="@Url.Content(user.Photo)">
                         </a>
                     </div>
                     <div class="col-md-9 col-sm-8 col-8 justify-content-center align-self-center">
@@ -44,6 +44,8 @@
                 <div class="w-100"></div>
                 <hr>
                 <div class="wrap">
+                    <div class="col-6 col-sm-6 hov">@Html.ActionLink("моя страница", "Index", "Home", new { id = userId }, new { @class = "btn hov" })</div>
+                    <div class="w-100"></div>
                     <div class="col-6 col-sm-6 hov">@Html.ActionLink("друзья", "Index", "Friends", new { area = "" }, new { @class = "btn hov" })</div>
                     <div class="w-100"></div>
                     <div class="col-6 col-sm-6 hov">@Html.ActionLink("сообщения", "Index", "Messages", new { area = "" }, new { @class = "btn hov" })</div>
@@ -74,7 +76,14 @@
                 container.children[i].classList.remove("activeDiv");
                 container.children[i].firstChild.classList.remove("activeLink");
             }
+            else if (container.children[i].firstChild == $(this).get()[0] && $(this).get()[0].textContent == "Выход") localStorage.setItem('lastTab', null);
             else if (container.children[i].firstChild == $(this).get()[0]) localStorage.setItem('lastTab', i);
         }
-    })
+    });
+    function myPage() {
+        let wrap = $('.wrap')[0];
+        localStorage.setItem('lastTab', 0);
+        wrap.children[0].className = "col-6 col-sm-6 hov activeDiv";
+        wrap.children[1].children[0].className = "btn hov activeLink";
+    }
 </script>
