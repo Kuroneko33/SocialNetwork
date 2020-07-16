@@ -63,8 +63,8 @@
         }
     }
     $('.btn').on('click', function () {
-        let link = $(this).get()[0].attributes[0].textContent = "btn hov activeLink";
-        let div = $(this).get()[0].parentElement.className = "col-6 col-sm-6 hov activeDiv";
+        $(this).get()[0].attributes[0].textContent = "btn hov activeLink";
+        $(this).get()[0].parentElement.className = "col-6 col-sm-6 hov activeDiv";
         let container = $(this).get()[0].parentElement.parentElement;
         for (let i = 0; i < container.children.length; ++i) {
             if (container.children[i].className != "w-100" && container.children[i].className == "col-6 col-sm-6 hov activeDiv"
