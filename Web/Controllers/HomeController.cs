@@ -39,7 +39,11 @@ namespace Web.Controllers
                 FriendRequestIsSent =
                         dataManager.FriendRequests.RequestIsSent(
                             user.Id,
-                            (int)Membership.GetUser().ProviderUserKey)
+                            (int)Membership.GetUser().ProviderUserKey),
+                FriendRequestIsSentToMe =
+                        dataManager.FriendRequests.RequestIsSent(
+                        (int)Membership.GetUser().ProviderUserKey,
+                        user.Id)
             };
             
             return View(model);
