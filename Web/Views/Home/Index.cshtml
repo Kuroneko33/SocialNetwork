@@ -63,6 +63,15 @@
                             <button onclick="location.href='@Url.Action("CancelFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Отменить свою заявку</button>
                         </div>
                     }
+                    else if (Model.FriendRequestIsSentToMe)
+                    {
+                        <div class="text-white">
+                            Пользователь отправил вам заявку. Вы можете:<br />
+                            <button onclick="location.href='@Url.Action("ConfirmFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Принять заявку</button>
+                            или
+                            <button onclick="location.href='@Url.Action("DisagreeFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Отклонить заявку</button>
+                        </div>
+                    }
                     else
                     {
                         <div class="text-white">
