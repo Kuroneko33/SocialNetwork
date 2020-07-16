@@ -35,12 +35,11 @@
                         @if (Model.UserIsMe)
                         {
                             <div class="form-group">
-                                @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data", style = "float: left" }))
+                                @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data", style = "float: left", name = "loadPhoto" }))
                                 {
-                                    <input type="file" name="upload" id="selectedFile" style="display: none;" />
+                                    <input type="file" name="upload" id="selectedFile" style="display: none"; onchange="document.loadPhoto.submit()"/>
                                     <div class="btn-group" role="group">
                                         <input class="btn btn-primary myBtn" type="button" value="Выбрать" onclick="document.getElementById('selectedFile').click();" />
-                                        <input class="btn btn-success myBtn" type="submit" value="Загрузить" />
                                     </div>
                                 }
                                 @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { style = "float: right" }))
@@ -64,26 +63,34 @@
                         }
                         else if (Model.FriendRequestIsSent)
                         {
-                        <div class="text-white">
-                            <div class="alert alert-primary text-center" role="alert">
-                                <strong class="text-success">Вы отправили заявку в друзья.</strong><br> Ожидайте решение пользователя.
-                            </div>
+                            <div class="text-white">
+                                <div class="alert alert-primary text-center" role="alert">
+                                    <strong class="text-success">Вы отправили заявку в друзья.</strong><br> Ожидайте решение пользователя.
+                                </div>
                                 <button class="btn btn-danger myBtn btn-block" onclick="location.href='@Url.Action("CancelFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Отменить свою заявку</button>
                             </div>
-                            }
-                            else
-                            {
+                        }
+                        else if (Model.FriendRequestIsSentToMe)
+                        {
+                            <div class="text-white">
+                                Пользователь отправил вам заявку. Вы можете:<br />
+                                <button onclick="location.href='@Url.Action("ConfirmFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Принять заявку</button>
+                                или
+                                <button onclick="location.href='@Url.Action("DisagreeFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Отклонить заявку</button>
+                            </div>
+                        }
+                        else
+                        {
                             <div class="text-white">
                                 <button class="btn btn-info myBtn btn-block" onclick="location.href='@Url.Action("AddFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Добавить в друзья</button>
                             </div>
-                            }
-                        </div>
+                        }
+                    </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-6">
                     <div class="img-thumbnail">
                         <h5 class="text-white name">@Model.User.LastName @Model.User.FirstName @Model.User.MiddleName</h5>
                         <hr>
-                        <!-- Переделывай и меняй лейблы и h6 на что хочешь-->
                         @if (true)
                         {
                             <label class="text-white font-weight-bold" for="BDate">Дата рождения:</label>
