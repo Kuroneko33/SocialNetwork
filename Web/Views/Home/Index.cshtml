@@ -21,89 +21,101 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-12">
             <div class="row">
-                <div class="img-thumbnail">
-                    @if (Model.User.Photo != null)
-                    {
-                        <img class="card-img-top main_avatar" src="@Url.Content(Model.User.Photo)" />
-                    }
-                    else
-                    {
-                        <img class="card-img-top main_avatar" src="@Url.Content("~/Content/images/usersAvatars/noAvatar.png")" />
-                    }
-                    <hr>
-                    @if (Model.UserIsMe)
-                    {
-                        <div class="form-group">
-                            @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data", style = "float: left" }))
-                            {
-                                <input type="file" name="upload" id="selectedFile" style="display: none;" />
-                                <input type="button" value="Выбрать" onclick="document.getElementById('selectedFile').click();" />
-                                <input type="submit" value="Загрузить" />
+                <div class="col-md-6 col-sm-6 col-6">
+                    <div class="img-thumbnail">
+                        @if (Model.User.Photo != null)
+                        {
+                            <img class="card-img-top main_avatar" src="@Url.Content(Model.User.Photo)" />
+                        }
+                        else
+                        {
+                            <img class="card-img-top main_avatar" src="@Url.Content("~/Content/images/usersAvatars/noAvatar.png")" />
+                        }
+                        <hr>
+                        @if (Model.UserIsMe)
+                        {
+                            <div class="form-group">
+                                @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data", style = "float: left" }))
+                                {
+                                    <input type="file" name="upload" id="selectedFile" style="display: none;" />
+                                    <div class="btn-group" role="group">
+                                        <input class="btn btn-primary myBtn" type="button" value="Выбрать" onclick="document.getElementById('selectedFile').click();" />
+                                        <input class="btn btn-success myBtn" type="submit" value="Загрузить" />
+                                    </div>
+                                }
+                                @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { style = "float: right" }))
+                                {
+                                    <input class="btn btn-danger myBtn" type="submit" value="Удалить" />
+                                }
+                            </div>
+                        }
+
+                        else if (Model.UserIsMyFriend)
+                        {
+                            <div class="text-white">
+                                <div class="alert alert-primary text-center" role="alert">
+                                    Этот пользователь у вас в друзьях
+                                </div>
+                                <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                                    <button class="btn btn-success othBtn" onclick="location.href='@Url.Action("NewMessage", "Messages", new { userToId = Model.User.Id }, null)'">Написать сообщение</button>
+                                    <button class="btn btn-danger othBtn" onclick="location.href='@Url.Action("DeleteFriend", "Friends", new { id = Model.User.Id }, null)'">Удалить из друзей</button>
+                                </div>
+                            </div>
+                        }
+                        else if (Model.FriendRequestIsSent)
+                        {
+                        <div class="text-white">
+                            <div class="alert alert-primary text-center" role="alert">
+                                <strong class="text-success">Вы отправили заявку в друзья.</strong><br> Ожидайте решение пользователя.
+                            </div>
+                                <button class="btn btn-danger myBtn btn-block" onclick="location.href='@Url.Action("CancelFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Отменить свою заявку</button>
+                            </div>
                             }
-                            @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { style = "float: right" }))
+                            else
                             {
-                                <input type="submit" value="Удалить" />
+                            <div class="text-white">
+                                <button class="btn btn-info myBtn btn-block" onclick="location.href='@Url.Action("AddFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Добавить в друзья</button>
+                            </div>
                             }
                         </div>
-                    }
-                    else if (Model.UserIsMyFriend)
-                    {
-                        <div class="text-white">
-                            Этот пользователь у вас в друзьях. <br />
-                            <button onclick="location.href='@Url.Action("NewMessage", "Messages", new { userToId = Model.User.Id }, null)'">Написать сообщение</button>
-                            или
-                            <button onclick="location.href='@Url.Action("DeleteFriend", "Friends", new { id = Model.User.Id }, null)'">Удалить из друзей</button>
-                        </div>
-                    }
-                    else if (Model.FriendRequestIsSent)
-                    {
-                        <div class="text-white">
-                            Вы отправили заявку в друзья. <br />
-                            Ожидайте решение пользователя. <br />
-                            <button onclick="location.href='@Url.Action("CancelFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Отменить свою заявку</button>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="text-white">
-                            <button onclick="location.href='@Url.Action("AddFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Добавить в друзья</button>
-                        </div>
-                    }
                 </div>
-                <div class="info  img-thumbnail">
-                    <h5 class="text-white name">@Model.User.LastName @Model.User.FirstName @Model.User.MiddleName</h5>
-                    <hr>
-                    <!-- Переделывай и меняй лейблы и h6 на что хочешь-->
-                    @if (true)
-                    {
-                        <label class="text-white" for="BDate">Дата рождения</label>
-                        <h6 class="text-white" id="BDate" name="BDate">36 хуенваря 2010</h6>
-                        <br />
-                    }
-                    @if (true)
-                    {
-                        <label class="text-white" for="Phone">Телефон</label>
-                        <h6 class="text-white" id="Phone" name="Phone">+375 lalala</h6>
-                        <br />
-                    }
-                    @if (true)
-                    {
-                        <label class="text-white" for="City">Город</label>
-                        <h6 class="text-white" id="City" name="City">Полоцк</h6>
-                        <br />
-                    }
-                    @if (@Model.User.Email != null)
-                    {
-                        <label class="text-white" for="Email">Email</label>
-                        <h6 class="text-white" id="Email" name="Email">@Model.User.Email</h6>
-                        <br />
-                    }
-                    @if (Model.UserIsMe)
-                    {
-                        <div style="text-align: center">
-                            <button onclick="location.href='@Url.Action("Index", "Edit")'">Редактировать</button>
-                        </div>
-                    }
+                <div class="col-md-6 col-sm-6 col-6">
+                    <div class="img-thumbnail">
+                        <h5 class="text-white name">@Model.User.LastName @Model.User.FirstName @Model.User.MiddleName</h5>
+                        <hr>
+                        <!-- Переделывай и меняй лейблы и h6 на что хочешь-->
+                        @if (true)
+                        {
+                            <label class="text-white font-weight-bold" for="BDate">Дата рождения:</label>
+                            <h6 class="text-white" id="BDate" name="BDate">2 апреля 2000</h6>
+                            <hr class="slim-line">
+                            
+                        }
+                        @if (true)
+                        {
+                            <label class="text-white font-weight-bold" for="Phone">Телефон:</label>
+                            <h6 class="text-white" id="Phone" name="Phone">+375(XX)XXXXXXX</h6>
+                            <hr class="slim-line">
+                        }
+                        @if (true)
+                        {
+                            <label class="text-white font-weight-bold" for="City">Город:</label>
+                            <h6 class="text-white" id="City" name="City">Полоцк</h6>
+                            <hr class="slim-line">
+                        }
+                        @if (@Model.User.Email != null)
+                        {
+                            <label class="text-white font-weight-bold" for="Email">Email:</label>
+                            <h6 class="text-white" id="Email" name="Email">@Model.User.Email</h6>
+                        }
+                        <hr>
+                        @if (Model.UserIsMe)
+                        {
+                            <div class="text-left">
+                                <button class="btn btn-default editBtn" onclick="location.href='@Url.Action("Index", "Edit")'">Редактировать</button>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
