@@ -17,7 +17,7 @@ namespace Web.Models
 
         [Required(ErrorMessage = "*")]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Пароль подтверждён неверно")]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "*")]

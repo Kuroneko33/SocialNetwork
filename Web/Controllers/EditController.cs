@@ -62,12 +62,12 @@ namespace Web.Controllers
             TempData["Model"] = model;
             TempData["ViewData"] = ViewData;
 
+            model.BYear = BYear;
+            model.BMonth = BMonth;
+            model.BDay = BDay;
+
             if (ModelState.IsValid)
             {
-                model.BYear = BYear;
-                model.BMonth = BMonth;
-                model.BDay = BDay;
-
                 user.UserName = model.UserName;
                 user.Password = model.Password;
                 user.Email = model.Email;
