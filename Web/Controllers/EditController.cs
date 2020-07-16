@@ -29,8 +29,8 @@ namespace Web.Controllers
             else
             {
                 //тут перевод инфы юзеров в этот формат из user.BDate
-                //int BDay = 0;
-                //string BMonth = "август";
+                //int BDay = 1;
+                //int BMonth = 1;
                 //int BYear = 1999;
 
                 model = new EditViewModel
@@ -54,7 +54,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Save(EditViewModel model, int BYear, string BMonth, int BDay)
+        public ActionResult Save(EditViewModel model, int BYear, int BMonth, int BDay)
         {
             int id = (int)Membership.GetUser().ProviderUserKey;
             User user = dataManager.Users.GetUserById(id);

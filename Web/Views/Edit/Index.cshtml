@@ -93,7 +93,7 @@
                             <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Подтвердите пароль" value="@Model.ConfirmPassword">
                         </div>
                         <div style="text-align: center">
-                            <input type="submit" value="Сохранить"/>
+                            <input type="submit" value="Сохранить" />
                         </div>
                     }
                 </div>
@@ -131,10 +131,10 @@
         document.getElementById("BYear").appendChild(df);
 
         //month
-        for (let month of months) {
+        for (var i = 0; i < months.length; i++) {
             let option = document.createElement('option');
-            option.value = month;
-            option.appendChild(document.createTextNode(month));
+            option.value = i+1;
+            option.appendChild(document.createTextNode(months[i]));
             df.appendChild(option);
         }
         document.getElementById("BMonth").appendChild(df);
@@ -148,13 +148,13 @@
         let dayCount = 31;
         let selMonth = document.getElementById("BMonth").value;
         let selYear = document.getElementById("BYear").value;
-        let month30 = ["Январь", "Апрель", "Июнь", "Сентябрь", "Ноябрь"];
+        let month30 = [1, 4, 6, 9, 11];
         for (let month of month30) {
             if (selMonth == month) {
                 dayCount = 30
             }
         }
-        if (selMonth == "Февраль") {
+        if (selMonth == 2) {
 
             if (isLeapYear(selYear)) {
                 dayCount = 29;

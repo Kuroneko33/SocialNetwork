@@ -34,7 +34,7 @@ namespace Web.Models
         public string MiddleName { get; set; }
 
         public int BDay { get; set; } = 1;
-        public string BMonth { get; set; } = "Январь";
+        public int BMonth { get; set; } = 1;
         public int BYear { get; set; } = DateTime.UtcNow.Year;
 
         public string Phone { get; set; }
