@@ -66,56 +66,56 @@
                                 Введите Ваше имя
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.Register.FirstName)</sup>
                             </label>
-                            <input type="text" class="form-control" id="Register.FirstName" name="Register.FirstName">
+                            <input type="text" class="form-control" id="Register.FirstName" name="Register.FirstName" value="@Model.Register.FirstName">
                         </div>
                         <div class="form-group">
                             <label for="LastName">
                                 Введите Вашу фамилию
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.Register.LastName)</sup>
                             </label>
-                            <input type="text" class="form-control" id="Register.LastName" name="Register.LastName">
+                            <input type="text" class="form-control" id="Register.LastName" name="Register.LastName" value="@Model.Register.LastName">
                         </div>
                         <div class="form-group">
                             <label for="MiddleName">
                                 Введите Ваше отчество
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.Register.MiddleName)</sup>
                             </label>
-                            <input type="text" class="form-control" id="Register.MiddleName" name="Register.MiddleName">
+                            <input type="text" class="form-control" id="Register.MiddleName" name="Register.MiddleName" value="@Model.Register.MiddleName">
                         </div>
                         <div class="form-group">
                             <label for="Email">
                                 Введите Ваш Email
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.Register.Email)</sup>
                             </label>
-                            <input type="email" class="form-control" id="Register.Email" name="Register.Email" aria-describedby="emailHelp">
+                            <input type="email" class="form-control" id="Register.Email" name="Register.Email" aria-describedby="emailHelp" value="@Model.Register.Email">
                         </div>
                         <div class="form-group">
                             <label for="ConfirmEmail">
                                 Введите Ваш Email еще раз
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.Register.ConfirmEmail)</sup>
                             </label>
-                            <input type="email" class="form-control" id="Register.ConfirmEmail" name="Register.ConfirmEmail" aria-describedby="emailHelp">
+                            <input type="email" class="form-control" id="Register.ConfirmEmail" name="Register.ConfirmEmail" aria-describedby="emailHelp" value="@Model.Register.ConfirmEmail">
                         </div>
                         <div class="form-group">
                             <label for="UsrtName">
                                 Введите логин
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.Register.UsrName)</sup>
                             </label>
-                            <input type="text" class="form-control" id="Register.UsrName" name="Register.UsrName">
+                            <input type="text" class="form-control" id="Register.UsrName" name="Register.UsrName" value="@Model.Register.UsrName">
                         </div>
                         <div class="form-group">
                             <label for="Password">
                                 Введите ваш пароль
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.Register.Password)</sup>
                             </label>
-                            <input type="password" class="form-control" id="Register.Password" name="Register.Password">
+                            <input type="password" class="form-control" id="Register.Password" name="Register.Password" value="@Model.Register.Password">
                         </div>
                         <div class="form-group">
                             <label for="ConfirmPassword">
                                 Введите ваш пароль еще раз
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.Register.ConfirmPassword)</sup>
                             </label>
-                            <input type="password" class="form-control" id="Register.ConfirmPassword" name="Register.ConfirmPassword">
+                            <input type="password" class="form-control" id="Register.ConfirmPassword" name="Register.ConfirmPassword" value="@Model.Register.ConfirmPassword">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-secondary">Завершить регистрацию</button>
