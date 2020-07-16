@@ -24,7 +24,7 @@
     <div>
         @Html.ActionLink(user.LastName + " " + user.FirstName + " " + user.MiddleName,
                           "Index", "Home", new { id = user.Id }, null)
-        (@Html.ActionLink("подтвердить заявку", "ConfirmFriendRequest", "Friends", new { id = user.Id }, null)
+        (@Html.ActionLink("принять заявку", "ConfirmFriendRequest", "Friends", new { id = user.Id }, null)
         или
         @Html.ActionLink("отклонить заявку", "DisagreeFriendRequest", "Friends", new { id = user.Id }, null))
     </div>
