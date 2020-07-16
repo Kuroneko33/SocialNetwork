@@ -34,77 +34,78 @@
                     @if (Model.UserIsMe)
                     {
                         <div class="form-group">
-                            <label>Загрузить изображение</label>
-                            @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data", style = "float: left" }))
                             {
-                                <input type="file" name="upload" />
+                                <input type="file" name="upload" id="selectedFile" style="display: none;" />
+                                <input type="button" value="Выбрать" onclick="document.getElementById('selectedFile').click();" />
                                 <input type="submit" value="Загрузить" />
                             }
-                            @using (Html.BeginForm("Delete", "Home"))
+                            @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { style = "float: right" }))
                             {
                                 <input type="submit" value="Удалить" />
                             }
+                        </div>
+                    }
+                    else if (Model.UserIsMyFriend)
+                    {
+                        <div class="text-white">
+                            Этот пользователь у вас в друзьях. <br />
+                            <button onclick="location.href='@Url.Action("NewMessage", "Messages", new { userToId = Model.User.Id }, null)'">Написать сообщение</button>
+                            или
+                            <button onclick="location.href='@Url.Action("DeleteFriend", "Friends", new { id = Model.User.Id }, null)'">Удалить из друзей</button>
+                        </div>
+                    }
+                    else if (Model.FriendRequestIsSent)
+                    {
+                        <div class="text-white">
+                            Вы отправили заявку в друзья. <br />
+                            Ожидайте решение пользователя. <br />
+                            <button onclick="location.href='@Url.Action("CancelFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Отменить свою заявку</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-white">
+                            <button onclick="location.href='@Url.Action("AddFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Добавить в друзья</button>
                         </div>
                     }
                 </div>
                 <div class="info  img-thumbnail">
                     <h5 class="text-white name">@Model.User.LastName @Model.User.FirstName @Model.User.MiddleName</h5>
                     <hr>
+                    <!-- Переделывай и меняй лейблы и h6 на что хочешь-->
+                    @if (true)
+                    {
+                        <label class="text-white" for="BDate">Дата рождения</label>
+                        <h6 class="text-white" id="BDate" name="BDate">36 хуенваря 2010</h6>
+                        <br />
+                    }
+                    @if (true)
+                    {
+                        <label class="text-white" for="Phone">Телефон</label>
+                        <h6 class="text-white" id="Phone" name="Phone">+375 lalala</h6>
+                        <br />
+                    }
+                    @if (true)
+                    {
+                        <label class="text-white" for="City">Город</label>
+                        <h6 class="text-white" id="City" name="City">Полоцк</h6>
+                        <br />
+                    }
+                    @if (@Model.User.Email != null)
+                    {
+                        <label class="text-white" for="Email">Email</label>
+                        <h6 class="text-white" id="Email" name="Email">@Model.User.Email</h6>
+                        <br />
+                    }
+                    @if (Model.UserIsMe)
+                    {
+                        <div style="text-align: center">
+                            <button onclick="location.href='@Url.Action("Index", "Edit")'">Редактировать</button>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@if (Model.UserIsMe)
-{
-    <div style="border: 1px solid red; padding: 5px 5px 5px 5px; margin: 5px 0px">Это вы!</div>
-}
-
-
-
-
-
-@if (!Model.UserIsMe)
-{
-    <div style="border: 1px solid red; padding: 5px 5px 5px 5px; margin: 5px 0px">
-        @if (Model.UserIsMyFriend)
-        {
-            <div>
-                Этот пользователь у вас в друзьях. @Html.ActionLink("Написать сообщение", "NewMessage", "Messages", new { userToId = Model.User.Id }, null)
-                или
-                @Html.ActionLink("Удалить из друзей", "DeleteFriend", "Friends", new { id = Model.User.Id }, null)
-            </div>
-        }
-        else if (Model.FriendRequestIsSent)
-        {
-            <div>
-                Вы отправили заявку в друзья. Ожидайте решение пользователя.
-                @Html.ActionLink("Отменить свою заявку", "CancelFriendRequest", "Friends", new { id = Model.User.Id }, null)
-            </div>
-        }
-        else
-        {
-            <div>
-                @Html.ActionLink("Добавить в друзья", "AddFriendRequest", "Friends", new { id = Model.User.Id }, null)
-            </div>
-        }
-    </div>
-}

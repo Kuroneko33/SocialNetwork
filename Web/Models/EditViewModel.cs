@@ -1,29 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
 namespace Web.Models
 {
-    public class RegisterViewModel
+    public class EditViewModel
     {
         [Required(ErrorMessage = "*")]
-        public string UsrName { get; set; }
-    
+        public string UserName { get; set; }
+
         [Required(ErrorMessage = "*")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "*")]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Пароль не совпадают")]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "*")]
         [RegularExpression(@"^[a-zA-Z0-9.-]{1,20}@[a-zA-Z0-9]{1,20}\.[A-Za-z]{2,4}", ErrorMessage = "Неверный формат Email")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "*")]
-        [RegularExpression(@"^[a-zA-Z0-9.-]{1,20}@[a-zA-Z0-9]{1,20}\.[A-Za-z]{2,4}", ErrorMessage = "Неверный формат Email")]
-        [Compare("Email", ErrorMessage = "Email подтверждён неверно")]
-        public string ConfirmEmail { get; set; }
 
         [Required(ErrorMessage = "*")]
         public string FirstName { get; set; }
@@ -33,5 +32,13 @@ namespace Web.Models
 
         [Required(ErrorMessage = "*")]
         public string MiddleName { get; set; }
+
+        public int BDay { get; set; } = 1;
+        public int BMonth { get; set; } = 1;
+        public int BYear { get; set; } = DateTime.UtcNow.Year;
+
+        public string Phone { get; set; }
+
+        public string City { get; set; }
     }
 }

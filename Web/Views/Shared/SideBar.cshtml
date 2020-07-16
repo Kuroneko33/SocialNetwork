@@ -21,6 +21,10 @@
         @{
             int userId = (int)Membership.GetUser().ProviderUserKey;
             Domain.Entities.User user = new Domain.EFDbContext().Users.FirstOrDefault(x => x.Id == userId);
+            if (user.Photo == null)
+            {
+                user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+            }
         }
         <div class="col-md-5 col-sm-5 col-6" id="side">
             <div class="container">
@@ -31,8 +35,11 @@
                         </a>
                     </div>
                     <div class="col-md-9 col-sm-8 col-8 justify-content-center align-self-center">
-                        <input class="form align-middle center-block" type="text" placeholder="Поиск">
-                    </div>
+                        @using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "form-horizontal", name = "redirect" }))
+                        {
+                            <input class="form align-middle center-block" type="text" placeholder="Поиск" id="search" name="search" onkeydown="search()">
+                        }
+                        </div>
                     <div class="w-100"></div>
                     <div class="col-md-12 col-sm-12 col-12 text-white" style="margin: 7px;"><h5>@user.LastName @user.FirstName @user.MiddleName</h5></div>
                 </div>
@@ -40,7 +47,7 @@
                 <div class="w-100"></div>
                 <hr>
                 <div class="wrap">
-                    <div class="col-6 col-sm-6 hov">@Html.ActionLink("моя страница", "Index", "Home", new { area = "" }, new { @class = "btn hov" })</div>
+                    <div class="col-6 col-sm-6 hov">@Html.ActionLink("моя страница", "Index", "Home", new { id = userId }, new { @class = "btn hov" })</div>
                     <div class="w-100"></div>
                     <div class="col-6 col-sm-6 hov">@Html.ActionLink("друзья", "Index", "Friends", new { area = "" }, new { @class = "btn hov" })</div>
                     <div class="w-100"></div>
@@ -81,5 +88,14 @@
         localStorage.setItem('lastTab', 0);
         wrap.children[0].className = "col-6 col-sm-6 hov activeDiv";
         wrap.children[1].children[0].className = "btn hov activeLink";
+    }
+
+    function search() {
+        let search = document.getElementById('search');
+        search.onkeydown = function (e) {
+            if (e.keyCode == 13) {
+                document.redirect.submit();
+            }
+        }
     }
 </script>

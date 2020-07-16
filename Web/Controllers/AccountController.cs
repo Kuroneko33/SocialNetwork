@@ -25,8 +25,13 @@ namespace Web.Controllers
                     model = TempData["Model"] as LoginRegisterViewModel;
                     ViewData = (ViewDataDictionary)TempData["ViewData"];
                 }
+                if (model.Register == null)
+                {
+                    model.Register = new RegisterViewModel();
+                }
                 return View(model);
             }
+            
             if (ModelState.IsValid)
             {
                 if (dataManager.MembershipProvider.ValidateUser(lModel.UserName, lModel.Password))

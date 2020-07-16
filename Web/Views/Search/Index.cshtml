@@ -6,16 +6,6 @@
 }
 
 <h2>Поиск пользователей</h2>
-<div>
-    @using (Html.BeginForm())
-    {
-        <p>Попробуйте найти пользователя по ФИО</p>
-        <p>Фамилия: @Html.TextBox("lastName")</p>
-        <p>Имя: @Html.TextBox("firstName")</p>
-        <p>Отчество: @Html.TextBox("middleName")</p>
-        <input type="submit" value="Найти человека" />
-    }
-</div>
 @if (Model != null && Model.Any())
 {
     <p>Результаты поиска</p>
