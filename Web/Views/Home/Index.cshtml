@@ -35,27 +35,24 @@
                         @if (Model.UserIsMe)
                         {
                             <div class="form-group">
-                                @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data", style = "float: left", name = "loadPhoto" }))
+                                @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data", name = "loadPhoto" }))
                                 {
-                                    <input type="file" name="upload" id="selectedFile" style="display: none"; onchange="document.loadPhoto.submit()"/>
-                                    <div class="btn-group" role="group">
+                                    <input type="file" name="upload" id="selectedFile" style="display: none" ; onchange="document.loadPhoto.submit()" />
+                                    <div class="btn-group btn-block" role="group">
                                         <input class="btn btn-primary myBtn" type="button" value="Выбрать" onclick="document.getElementById('selectedFile').click();" />
+                                        <input class="btn btn-danger myBtn" type="button" value="Удалить" onclick="document.deletePhoto.submit()" />
                                     </div>
-                                }
-                                @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { style = "float: right" }))
-                                {
-                                    <input class="btn btn-danger myBtn" type="submit" value="Удалить" />
-                                }
+                                    }
+                                @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { name = "deletePhoto" })) { }          
                             </div>
                         }
-
                         else if (Model.UserIsMyFriend)
                         {
                             <div class="text-white">
                                 <div class="alert alert-primary text-center" role="alert">
                                     Этот пользователь у вас в друзьях
                                 </div>
-                                <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                                <div class="btn-group btn-block" role="group">
                                     <button class="btn btn-success othBtn" onclick="location.href='@Url.Action("NewMessage", "Messages", new { userToId = Model.User.Id }, null)'">Написать сообщение</button>
                                     <button class="btn btn-danger othBtn" onclick="location.href='@Url.Action("DeleteFriend", "Friends", new { id = Model.User.Id }, null)'">Удалить из друзей</button>
                                 </div>
@@ -72,20 +69,24 @@
                         }
                         else if (Model.FriendRequestIsSentToMe)
                         {
-                            <div class="text-white">
-                                Пользователь отправил вам заявку. Вы можете:<br />
-                                <button onclick="location.href='@Url.Action("ConfirmFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Принять заявку</button>
-                                или
-                                <button onclick="location.href='@Url.Action("DisagreeFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Отклонить заявку</button>
+                        <div class="text-white text-center">
+                            <div class="alert alert-primary" role="alert">
+                                Пользователь отправил вам заявку.<br> 
+                                <strong class="text-success">Вы можете:</strong>
                             </div>
-                        }
-                        else
-                        {
+                            <div class="btn-group btn-block" role="group">
+                                <button class="btn btn-primary myBtn" onclick="location.href='@Url.Action("ConfirmFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Принять заявку</button>
+                                <button class="btn btn-danger myBtn " onclick="location.href='@Url.Action("DisagreeFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Отклонить заявку</button>
+                            </div>
+                            </div>
+                            }
+                            else
+                            {
                             <div class="text-white">
                                 <button class="btn btn-info myBtn btn-block" onclick="location.href='@Url.Action("AddFriendRequest", "Friends", new { id = Model.User.Id }, null)'">Добавить в друзья</button>
                             </div>
-                        }
-                    </div>
+                            }
+                        </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-6">
                     <div class="img-thumbnail">

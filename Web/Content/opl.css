@@ -5,6 +5,7 @@ body {
 
 .background {
 	background-color: rgb(93, 81, 117);
+	padding-right: 0 !important;
 }
 
 
@@ -23,7 +24,6 @@ body {
 .form {
 	background: rgb(93, 81, 117);
 	font-size: 14px;
-	font-weight: bold;
 	color: #fff;
 	border: none;
 	border-radius: 20px;

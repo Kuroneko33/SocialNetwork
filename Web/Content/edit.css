@@ -1,0 +1,31 @@
+﻿body {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.thumbnail {
+    padding: 20px !important;
+    background-color: rgb(55, 47, 88) !important;
+    border: none !important;
+    border-radius: 4px;
+}
+
+.myBtn {
+    padding: 0.375rem 0.75rem !important;
+}
+
+.field {
+    background: rgb(93, 81, 117) !important;
+    font-size: 14px !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 20px !important;
+    box-shadow: none !important;
+    outline: 0 none !important;
+    padding: 10px 20px !important;
+    text-transform: capitalize !important;
+    transition: all 0.3s ease 0s !important;
+    width: 100% !important;
+}

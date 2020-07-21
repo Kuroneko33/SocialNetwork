@@ -4,7 +4,7 @@
     ViewBag.Title = Model.LastName + " " + Model.FirstName + " " + Model.MiddleName;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" type="text/css" href="~/Content/page.css">
+<link rel="stylesheet" type="text/css" href="~/Content/edit.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -17,11 +17,12 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 
-<div class="container py-3">
+
+<div class="container py-3 overflow-auto">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-12">
             <div class="row">
-                <div class="info  img-thumbnail">
+                <div class="thumbnail">
                     @using (Html.BeginForm("Save", "Edit", FormMethod.Get, new { @class = "form-horizontal", style = "width: 100vh" }))
                     {
                         <h5 class="text-white name">Редактирование</h5>
@@ -29,71 +30,72 @@
                         <hr>
                         <div class="form-group">
                             <div class="form-group">
-                                <label class="text-white" for="LastName">
+                                <label class="text-white font-weight-bold" for="LastName">
                                     Фамилия
                                     <sup style="color:red">@Html.ValidationMessageFor(x => x.LastName)</sup>
                                 </label>
-                                <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Фамилия" value="@Model.LastName">
+                                <input type="text" class="form-control field center-block" id="LastName" name="LastName" placeholder="Иванов" value="@Model.LastName">
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="FirstName">
+                                <label class="text-white font-weight-bold" for="FirstName">
                                     Имя
                                     <sup style="color:red">@Html.ValidationMessageFor(x => x.FirstName)</sup>
                                 </label>
-                                <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Имя" value="@Model.FirstName">
+                                <input type="text" class="form-control field center-block" id="FirstName" name="FirstName" placeholder="Иван" value="@Model.FirstName">
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="MiddleName">
+                                <label class="text-white font-weight-bold" for="MiddleName">
                                     Отчество
                                     <sup style="color:red">@Html.ValidationMessageFor(x => x.MiddleName)</sup>
                                 </label>
-                                <input type="text" class="form-control" id="MiddleName" name="MiddleName" placeholder="Отчество" value="@Model.MiddleName">
+                                <input type="text" class="form-control field center-block" id="MiddleName" name="MiddleName" placeholder="Иванович" value="@Model.MiddleName">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="text-white" for="BDate">Дата рождения</label><br />
+                            <label class="text-white font-weight-bold" for="BDate">Дата рождения</label><br />
                             <select id="BYear" name="BYear" onchange="calcDays()"></select>
                             <select id="BMonth" name="BMonth" onchange="calcDays()"></select>
                             <select id="BDay" name="BDay"></select>
                         </div>
                         <div class="form-group">
-                            <label class="text-white" for="Phone">Телефон</label>
-                            <input type="text" class="form-control" id="Phone" name="Phone" placeholder="Телефон" value="@Model.Phone">
+                            <label class="text-white font-weight-bold" for="Phone">Телефон</label>
+                            <input type="text" class="form-control field center-block" id="Phone" name="Phone" placeholder="+375(ХХ)ХХХХХХХ" value="@Model.Phone">
                         </div>
                         <div class="form-group">
-                            <label class="text-white" for="City">Город</label>
-                            <input type="text" class="form-control" id="City" name="City" placeholder="Город" value="@Model.City">
+                            <label class="text-white font-weight-bold" for="City">Город</label>
+                            <input type="text" class="form-control field center-block" id="City" name="City" placeholder="Полоцк" value="@Model.City">
                         </div>
                         <div class="form-group">
-                            <label class="text-white" for="Email">
-                                UserName
+                            <label class="text-white font-weight-bold" for="Email">
+                                Имя пользователя
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.UserName)</sup>
                             </label>
-                            <input type="text" class="form-control" id="UserName" name="UserName" placeholder="UserName" value="@Model.UserName">
+                            <input type="text" class="form-control field center-block" id="UserName" name="UserName" placeholder="whitefox" value="@Model.UserName">
                         </div>
                         <div class="form-group">
-                            <label class="text-white" for="Email">
+                            <label class="text-white font-weight-bold" for="Email">
                                 Email
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.Email)</sup>
                             </label>
-                            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email" value="@Model.Email">
+                            <input type="text" class="form-control field center-block" id="Email" name="Email" placeholder="name@gmail.com" value="@Model.Email">
                         </div>
                         <div class="form-group">
-                            <label class="text-white" for="Password">
+                            <label class="text-white font-weight-bold" for="Password">
                                 Пароль
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.Password)</sup>
                             </label>
-                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Пароль" value="@Model.Password">
+                            <input type="password" class="form-control field center-block" id="Password" name="Password" value="@Model.Password">
                         </div>
                         <div class="form-group">
-                            <label class="text-white" for="ConfirmPassword">
+                            <label class="text-white font-weight-bold" for="ConfirmPassword">
                                 Подтвердите пароль
                                 <sup style="color:red">@Html.ValidationMessageFor(x => x.ConfirmPassword)</sup>
                             </label>
-                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Подтвердите пароль" value="@Model.ConfirmPassword">
+                            <input type="password" class="form-control field center-block" id="ConfirmPassword" name="ConfirmPassword" value="@Model.ConfirmPassword">
                         </div>
+                        <hr>
                         <div style="text-align: center">
-                            <input type="submit" value="Сохранить" />
+                            <input class="btn btn-info myBtn" type="submit" value="Сохранить" />
                         </div>
                     }
                 </div>
