@@ -24,7 +24,7 @@ namespace BusinessLogic.Implementations
                 UserName = userName,
                 Password = password,
                 Email = email,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.UtcNow,
                 FirstName = firstname,
                 LastName = lastName,
                 MiddleName = middleName
