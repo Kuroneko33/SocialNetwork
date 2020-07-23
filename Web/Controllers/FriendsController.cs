@@ -85,7 +85,7 @@ namespace Web.Controllers
             };
             dataManager.FriendRequests.AddFriendRequest(friendRequest);
 
-            return RedirectToAction("Index", "Home", new { id });
+            return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
         }
 
         //Отмена заявки
@@ -94,8 +94,7 @@ namespace Web.Controllers
             dataManager.FriendRequests.DeleteFriendRequest(
                 dataManager.FriendRequests.GetFriendRequests().FirstOrDefault(
                     x => x.UserId == id && x.PossibleFiendId == GetCurrentUserId()));
-
-            return RedirectToAction("Index", "Home", new { id });
+            return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
         }
 
         //Отклонение заявки
@@ -105,7 +104,7 @@ namespace Web.Controllers
                 dataManager.FriendRequests.GetFriendRequests().FirstOrDefault(
                     x => x.UserId == GetCurrentUserId() && x.PossibleFiendId == id));
 
-            return RedirectToAction("Index", "Home", new { id });
+            return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
         }
 
         //Принятие заявки
@@ -126,7 +125,7 @@ namespace Web.Controllers
                     )
                 );
 
-            return RedirectToAction("Index", "Home", new { id });
+            return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
         }
 
         //Удаление из друзей
@@ -140,7 +139,7 @@ namespace Web.Controllers
                 dataManager.Friends.GetFriends().FirstOrDefault(
                     x => x.UserId == GetCurrentUserId() && x.FriendId == id));
 
-            return RedirectToAction("Index", "Home", new { id });
+            return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
         }
     }
 }

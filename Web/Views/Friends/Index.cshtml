@@ -21,9 +21,13 @@
                     <tbody>
                         @foreach (User user in Model.Friends)
                         {
+                            if (user.Photo == null)
+                            {
+                                user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                            }
                             <tr>
                                 <td width="10%" class="align-middle">
-                                    <img class="avatar" src="Content\images\usersAvatars\AvatarUserId1.png" />
+                                    <img class="avatar" src="@Url.Content(user.Photo)" />
                                 </td>
                                 <td class="align-middle">
                                     <strong>
@@ -47,9 +51,13 @@
                     <tbody>
                         @foreach (User user in Model.IncomingRequests)
                         {
+                            if (user.Photo == null)
+                            {
+                                user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                            }
                             <tr>
                                 <td width="10%" class="align-middle">
-                                    <img class="avatar" src="Content\images\usersAvatars\AvatarUserId1.png" />
+                                    <img class="avatar" src="@Url.Content(user.Photo)" />
                                 </td>
                                 <td class="align-middle">
                                     <strong>
@@ -73,9 +81,13 @@
                     <tbody>
                         @foreach (User user in Model.OutgoingRequests)
                         {
+                            if (user.Photo == null)
+                            {
+                                user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                            }
                             <tr>
                                 <td width="10%" class="align-middle">
-                                    <img class="avatar" src="Content\images\usersAvatars\AvatarUserId1.png" />
+                                    <img class="avatar" src="@Url.Content(user.Photo)" />
                                 </td>
                                 <td class="align-middle">
                                     <strong>
