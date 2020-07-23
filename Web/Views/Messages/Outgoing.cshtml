@@ -16,7 +16,7 @@
     {
         <tr>
             <td>@message.UserTo.LastName @message.UserTo.FirstName</td>
-            <td>@message.Message.CreatedDate</td>
+            <td>@TimeZoneInfo.ConvertTimeFromUtc(message.Message.CreatedDate, TimeZoneInfo.Local)</td>
             <td>@message.Message.Text</td>
         </tr>
     }

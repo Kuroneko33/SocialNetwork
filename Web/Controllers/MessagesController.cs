@@ -61,7 +61,7 @@ namespace Web.Controllers
                 {
                     UserId = GetCurrentUserId(),
                     UserToId = userToId,
-                    CreatedDate = DateTime.Now
+                    CreatedDate = DateTime.UtcNow
                 });
         }
 
