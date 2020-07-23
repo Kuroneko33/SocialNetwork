@@ -16,8 +16,17 @@
                 integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
                 crossorigin="anonymous"></script>
         @{
-            int userId = (int)Membership.GetUser().ProviderUserKey;
-            Domain.Entities.User user = new Domain.EFDbContext().Users.FirstOrDefault(x => x.Id == userId);
+            Domain.Entities.User user = new Domain.Entities.User();
+            int userId = 0;
+            try
+            {
+                userId = (int)Membership.GetUser().ProviderUserKey;
+                user = new Domain.EFDbContext().Users.FirstOrDefault(x => x.Id == userId);
+            }
+            catch (Exception)
+            {
+            }
+
             if (user.Photo == null)
             {
                 user.Photo = "~/Content/images/usersAvatars/noAvatar.png";

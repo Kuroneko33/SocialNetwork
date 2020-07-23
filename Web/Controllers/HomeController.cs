@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using Domain.Entities;
+using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -24,8 +25,20 @@ namespace Web.Controllers
             //перенаправляем пользователя на то же действие,
             //однако добавляем в адрес вычисленный Id
             if (id == 0)
-                return RedirectToAction("Index", new { id = Membership.GetUser().ProviderUserKey });
-
+            { 
+                try
+                {
+                    if (Membership.GetUser() == null)
+                        throw new Exception();
+                    int userId = (int)Membership.GetUser().ProviderUserKey;
+                    return RedirectToAction("Index", new { id = userId });
+                }
+                catch (Exception)
+                {
+                    FormsAuthentication.SignOut();
+                    return RedirectToAction("Index", "Account");
+                }
+            }
             User user = dataManager.Users.GetUserById(id);
 
             //Определение страницы по Id

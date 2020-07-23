@@ -34,7 +34,14 @@ namespace BusinessLogic.Implementations
 
         public MembershipUser GetMembershipUserByName(string userName)
         {
-            User user = context.Users.FirstOrDefault(x => x.UserName == userName);
+            User user = null;
+            try
+            {
+                user = context.Users.FirstOrDefault(x => x.UserName == userName);
+            }
+            catch (Exception)
+            {
+            }
             if (user != null)
             {
                 return new MembershipUser(
