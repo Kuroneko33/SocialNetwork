@@ -1,0 +1,21 @@
+﻿@using Web.Models
+@model List<MessagePreviewViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Выбор сообщений</h2>
+<table>
+    @foreach (MessagePreviewViewModel item in Model)
+    {
+        <tr>
+            <td>@item.UserFrom</td>
+            <td>@item.CreatedDate.ToString("M") @TimeZoneInfo.ConvertTimeFromUtc(item.CreatedDate, TimeZoneInfo.Local).ToString("t")</td>
+        </tr>
+        <tr>
+            <td> @Html.ActionLink(@item.Text, "Index", "Messages", new { area = "" }, new { @class = "btn hov" })</td>
+        </tr>
+
+    }
+</table>

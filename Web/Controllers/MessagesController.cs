@@ -78,7 +78,7 @@ namespace Web.Controllers
                     {
                         UserId = message.UserToId,
                         UserFromId = message.UserId,
-                        CreatedDate = DateTime.Now,
+                        CreatedDate = DateTime.UtcNow,
                         Text = message.Text
                     });
                 return RedirectToAction("Index", "Home");
