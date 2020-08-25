@@ -8,3 +8,13 @@
    
 }
 
+.table-bg {
+    border-bottom: 1px solid #eec111 !important;
+}
+
+.table-bg:hover {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    opacity: 0.8 !important;
+    cursor: pointer;
+}
+

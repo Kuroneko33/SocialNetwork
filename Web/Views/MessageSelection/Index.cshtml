@@ -10,18 +10,68 @@
 
 <div class="container py-3 overflow-auto">
     <div class="img-thumbnail mr-3">
+        
 
-        @foreach (MessagePreviewViewModel item in Model)
-        {
-            <div>
-                @item.UserFrom
-                @item.CreatedDate.ToString("M") @TimeZoneInfo.ConvertTimeFromUtc(item.CreatedDate, TimeZoneInfo.Local).ToString("t")
-                @Html.ActionLink(@item.Text, "Index", "Messages", new { area = "" }, new { @class = "btn hov" })
-            </div>
-            <hr class="slim-line">
-        }
-
+        <table class="table text-white table-borderless">
+            <tbody>
+                @foreach (MessagePreviewViewModel item in Model)
+                {
+                    <tr class="hover">
+                        <!-- 
+                            сюда вставить ссылку на переход к диалогу (в тег, который выше)
+                        !-->
+                        <td width="10%">
+                            <img class="avatar" src="@Url.Content("~/Content/images/usersAvatars/noAvatar.png")" />
+                        </td>
+                        <td>
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5>
+                                                @item.UserFrom
+                                                <!-- 
+                                                    убрать дебильное "Вы - имя" и оставить только имя
+                                                !-->
+                                            </h5>
+                                            <small>
+                                                @item.CreatedDate.ToString("M") @TimeZoneInfo.ConvertTimeFromUtc(item.CreatedDate, TimeZoneInfo.Local).ToString("t")
+                                            </small>
+                                        </div>
+                                        <hr class="split-line" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="mb-1 text-left btn hov">
+                                            @item.Text 
+                                            <!-- 
+                                                добавить "Вы:" или "Вам:"
+                                            !-->
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
+
+
+
+   
 </div>
+ 
 
 
+@foreach (MessagePreviewViewModel item in Model)
+{
+    <div>
+        @item.UserFrom
+        @item.CreatedDate.ToString("M") @TimeZoneInfo.ConvertTimeFromUtc(item.CreatedDate, TimeZoneInfo.Local).ToString("t")
+        @Html.ActionLink(@item.Text, "Index", "Messages", new { area = "" }, new { @class = "btn hov" })
+    </div>
+
+}
