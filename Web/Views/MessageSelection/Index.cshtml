@@ -10,8 +10,6 @@
 
 <div class="container py-3 overflow-auto">
     <div class="img-thumbnail mr-3">
-        
-
         <table class="table text-white table-borderless">
             <tbody>
                 @foreach (MessagePreviewViewModel item in Model)
@@ -58,20 +56,6 @@
             </tbody>
         </table>
     </div>
-
-
-
-   
 </div>
  
 
-
-@foreach (MessagePreviewViewModel item in Model)
-{
-    <div>
-        @item.UserFrom
-        @item.CreatedDate.ToString("M") @TimeZoneInfo.ConvertTimeFromUtc(item.CreatedDate, TimeZoneInfo.Local).ToString("t")
-        @Html.ActionLink(@item.Text, "Index", "Messages", new { area = "" }, new { @class = "btn hov" })
-    </div>
-
-}
