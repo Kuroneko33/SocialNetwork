@@ -5,17 +5,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Выбор сообщений</h2>
-<table>
-    @foreach (MessagePreviewViewModel item in Model)
-    {
-        <tr>
-            <td>@item.UserFrom</td>
-            <td>@item.CreatedDate.ToString("M") @TimeZoneInfo.ConvertTimeFromUtc(item.CreatedDate, TimeZoneInfo.Local).ToString("t")</td>
-        </tr>
-        <tr>
-            <td> @Html.ActionLink(@item.Text, "Index", "Messages", new { area = "" }, new { @class = "btn hov" })</td>
-        </tr>
+<link rel="stylesheet" type="text/css" href="~/Content/messages.css">
 
-    }
-</table>
+
+<div class="container py-3 overflow-auto">
+    <div class="img-thumbnail mr-3">
+
+        @foreach (MessagePreviewViewModel item in Model)
+        {
+            <div>
+                @item.UserFrom
+                @item.CreatedDate.ToString("M") @TimeZoneInfo.ConvertTimeFromUtc(item.CreatedDate, TimeZoneInfo.Local).ToString("t")
+                @Html.ActionLink(@item.Text, "Index", "Messages", new { area = "" }, new { @class = "btn hov" })
+            </div>
+            <hr class="slim-line">
+        }
+
+    </div>
+</div>
+
+
