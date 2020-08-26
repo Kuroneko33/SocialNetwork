@@ -10,6 +10,7 @@ namespace Web.Controllers
 {
     public class MessageSelectionController : Controller
     {
+        private const string prefix = "Вы: ";
         private DataManager dataManager;
         public MessageSelectionController(DataManager dataManager)
         {
@@ -57,7 +58,7 @@ namespace Web.Controllers
                            new MessagePreviewViewModel
                            {
                                Text = item.Text,
-                               UserFrom = dataManager.Users.GetUserById(item.UserFromId).FirstName + " - Вам",
+                               UserFrom = dataManager.Users.GetUserById(item.UserFromId),
                                CreatedDate = item.CreatedDate
                            });
                     }
@@ -70,7 +71,7 @@ namespace Web.Controllers
                                new MessagePreviewViewModel
                                {
                                    Text = item.Text,
-                                   UserFrom = dataManager.Users.GetUserById(item.UserFromId).FirstName + " - Вам",
+                                   UserFrom = dataManager.Users.GetUserById(item.UserFromId),
                                    CreatedDate = item.CreatedDate
                                });
                         }
@@ -79,8 +80,8 @@ namespace Web.Controllers
                             models.Add(
                                new MessagePreviewViewModel
                                {
-                                   Text = item2.Text,
-                                   UserFrom = "Вы - " + dataManager.Users.GetUserById(item2.UserToId).FirstName,
+                                   Text = prefix + item2.Text,
+                                   UserFrom =  dataManager.Users.GetUserById(item2.UserToId),
                                    CreatedDate = item2.CreatedDate
                                });
                         }
@@ -97,8 +98,8 @@ namespace Web.Controllers
                         models.Add(
                            new MessagePreviewViewModel
                            {
-                               Text = item.Text,
-                               UserFrom = "Вы - " + dataManager.Users.GetUserById(item.UserToId).FirstName,
+                               Text = prefix + item.Text,
+                               UserFrom = dataManager.Users.GetUserById(item.UserToId),
                                CreatedDate = item.CreatedDate
                            });
                     }
@@ -110,8 +111,8 @@ namespace Web.Controllers
                             models.Add(
                                new MessagePreviewViewModel
                                {
-                                   Text = item.Text,
-                                   UserFrom = "Вы - " + dataManager.Users.GetUserById(item.UserToId).FirstName,
+                                   Text = prefix + item.Text,
+                                   UserFrom = dataManager.Users.GetUserById(item.UserToId),
                                    CreatedDate = item.CreatedDate
                                });
                         }
@@ -121,7 +122,7 @@ namespace Web.Controllers
                                new MessagePreviewViewModel
                                {
                                    Text = item2.Text,
-                                   UserFrom = dataManager.Users.GetUserById(item2.UserFromId).FirstName + " - Вам",
+                                   UserFrom = dataManager.Users.GetUserById(item2.UserFromId),
                                    CreatedDate = item2.CreatedDate
                                });
                         }

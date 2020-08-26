@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using Domain.Entities;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,66 +25,90 @@ namespace Web.Controllers
             return (int)Membership.GetUser().ProviderUserKey;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int id = 0)
         {
-            List<IncomingMessageViewModel> models = new List<IncomingMessageViewModel>();
+            if (id == 0)
+            {
+                if (TempData["id"] != null)
+                {
+                    id = (int)TempData["id"];
+                }
+            }
+            List <MessagesViewModel> models = new List<MessagesViewModel>();
+            
             foreach (IncomingMessage message in dataManager.Messages.GetIncomingMessagesByUserId(GetCurrentUserId()))
             {
-                models.Add(
-                    new IncomingMessageViewModel
-                    {
-                        Message = message,
-                        UserFrom = dataManager.Users.GetUserById(message.UserFromId)
-                    });
+                if (message.UserFromId == id)
+                {
+                    models.Add(
+                        new MessagesViewModel
+                        {
+                            Id = message.Id,
+                            UserFromId = message.UserFromId,
+                            UserToId = message.UserId,
+                            Text = message.Text,
+                            CreatedDate = message.CreatedDate,
+                            UserFrom = dataManager.Users.GetUserById(message.UserFromId),
+                        }
+                        );
+                }
             }
-            return View(models);
-        }
-
-        public ActionResult Outgoing()
-        {
-            List<OutgoingMessageViewModel> models = new List<OutgoingMessageViewModel>();
             foreach (OutgoingMessage message in dataManager.Messages.GetOutgoingMessagesByUserId(GetCurrentUserId()))
             {
-                models.Add(
-                    new OutgoingMessageViewModel
-                    {
-                        Message = message,
-                        UserTo = dataManager.Users.GetUserById(message.UserToId)
-                    });
-            }
-            return View(models);
-        }
-
-        public ActionResult NewMessage(int userToId)
-        {
-            return View(
-                new OutgoingMessage
+                if (message.UserToId == id)
                 {
-                    UserId = GetCurrentUserId(),
-                    UserToId = userToId,
-                    CreatedDate = DateTime.UtcNow
+                    models.Add(
+                        new MessagesViewModel
+                        {
+                            Id = message.Id,
+                            UserFromId = message.UserId,
+                            UserToId = message.UserToId,
+                            Text = message.Text,
+                            CreatedDate = message.CreatedDate,
+                            UserFrom = dataManager.Users.GetUserById(message.UserId),
+                        }
+                        ); 
+                }
+            }
+            models.Sort();
+            models.Insert(0,
+                new MessagesViewModel
+                {
+                    UserToId = id,
+                    UserFromId = GetCurrentUserId(),
+                    CreatedDate = new DateTime(2020, 8, 18),
                 });
+            TempData["id"] = id;
+            return View(models);
+
         }
 
         [HttpPost]
-        public ActionResult NewMessage(OutgoingMessage message)
+        public ActionResult NewMessage(List<MessagesViewModel> messages)
         {
-            if (ModelState.IsValid)
+            MessagesViewModel message = messages[0];
+            if (message.Text != null)
             {
-                //после отправки исходящего создаём соответствующее входящее сообщение 
-                //для другого пользователя 
-                dataManager.Messages.SaveOutgoingMessage(message);
+                dataManager.Messages.SaveOutgoingMessage(
+                    new OutgoingMessage
+                    {
+                        UserId = message.UserFromId,
+                        UserToId = message.UserToId,
+                        CreatedDate = DateTime.UtcNow,
+                        Text = message.Text
+                    });
                 dataManager.Messages.SaveIncomingMessage(
                     new IncomingMessage
                     {
                         UserId = message.UserToId,
-                        UserFromId = message.UserId,
+                        UserFromId = message.UserFromId,
                         CreatedDate = DateTime.UtcNow,
                         Text = message.Text
                     });
-                return RedirectToAction("Index", "Home");
+                TempData["id"] = message.UserToId;
+                return RedirectToAction("Index", "Messages");
             }
-            return View(message);
+            return RedirectToAction("Index", "Messages");
         }
     }
 }

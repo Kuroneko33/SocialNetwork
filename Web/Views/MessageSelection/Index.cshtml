@@ -14,12 +14,20 @@
             <tbody>
                 @foreach (MessagePreviewViewModel item in Model)
                 {
-                    <tr class="hover">
-                        <!-- 
-                            сюда вставить ссылку на переход к диалогу (в тег, который выше)
-                        !-->
+                    <tr class="hover" href="Home/Index/">
                         <td width="10%">
-                            <img class="avatar" src="@Url.Content("~/Content/images/usersAvatars/noAvatar.png")" />
+                            @if (item.UserFrom.Photo != null)
+                            {
+                                <a href="/Home/Index/@item.UserFrom.Id" onclick="myPage()">
+                                    <img class="avatar" src="@Url.Content(item.UserFrom.Photo)" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/Home/Index/@item.UserFrom.Id" onclick="myPage()">
+                                    <img class="avatar" src="@Url.Content("~/Content/images/usersAvatars/noAvatar.png")" />
+                                </a>
+                            }
                         </td>
                         <td>
                             <table width="100%">
@@ -27,10 +35,14 @@
                                     <td>
                                         <div class="d-flex w-100 justify-content-between">
                                             <h5>
-                                                @item.UserFrom
                                                 <!-- 
-                                                    убрать дебильное "Вы - имя" и оставить только имя
+                                                    или поправь стили тут где class = "nav-link waves-effect text-white"
+                                                    или засунь ссылку наверх туда, но и в друзьях тогде тоже наверх надо
                                                 !-->
+                                                <strong>
+                                                    @Html.ActionLink(item.UserFrom.FirstName,
+                                                              "Index", "Messages", new { id = item.UserFrom.Id }, new { @class = "nav-link waves-effect text-white" })
+                                                </strong>
                                             </h5>
                                             <small>
                                                 @item.CreatedDate.ToString("M") @TimeZoneInfo.ConvertTimeFromUtc(item.CreatedDate, TimeZoneInfo.Local).ToString("t")
@@ -42,10 +54,15 @@
                                 <tr>
                                     <td class="pt-0 pb-0 mb-0">
                                         <p class="mb-1 text-left btn hov p-0 mb-0">
-                                            @item.Text 
                                             <!-- 
-                                                добавить "Вы:" или "Вам:"
+                                                или поправь стили тут где class = "nav-link waves-effect text-white"
+                                                или засунь ссылку наверх туда, но и в друзьях тогде тоже наверх надо
+                                                и убрать капс вот тут в сообщении
                                             !-->
+                                            <strong>
+                                                @Html.ActionLink(item.Text,
+                                                          "Index", "Messages", new { id = item.UserFrom.Id }, new { @class = "nav-link waves-effect text-white" })
+                                            </strong>
                                         </p>
                                     </td>
                                 </tr>

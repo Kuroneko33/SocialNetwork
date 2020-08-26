@@ -148,6 +148,7 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\LoginRegisterViewModel.cs" />
     <Compile Include="Models\MessagePreviewViewModel.cs" />
+    <Compile Include="Models\MessagesViewModel.cs" />
     <Compile Include="Models\OutgoingMessageViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -437,8 +438,6 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Friends\Index.cshtml" />
     <Content Include="Views\Messages\Index.cshtml" />
-    <Content Include="Views\Messages\Outgoing.cshtml" />
-    <Content Include="Views\Messages\NewMessage.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
