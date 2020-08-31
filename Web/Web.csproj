@@ -175,6 +175,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chat.css" />
     <Content Include="Content\edit.css" />
     <Content Include="Content\friends.css" />
     <Content Include="Content\locales\bootstrap-datepicker-en-CA.min.js" />

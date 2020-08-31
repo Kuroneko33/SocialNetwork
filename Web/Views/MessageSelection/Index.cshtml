@@ -14,7 +14,7 @@
             <tbody>
                 @foreach (MessagePreviewViewModel item in Model)
                 {
-                    <tr class="hover" href="Home/Index/">
+                    <tr class="hover" onclick="return location.href='@Url.Action("Index", "Messages", new { id = item.UserFrom.Id })'">
                         <td width="10%">
                             @if (item.UserFrom.Photo != null)
                             {
@@ -52,16 +52,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="pt-0 pb-0 mb-0">
-                                        <p class="mb-1 text-left btn hov p-0 mb-0">
-                                            <!-- 
-                                                или поправь стили тут где class = "nav-link waves-effect text-white"
-                                                или засунь ссылку наверх туда, но и в друзьях тогде тоже наверх надо
-                                                и убрать капс вот тут в сообщении
-                                            !-->
-                                            <strong>
-                                                @Html.ActionLink(item.Text,
-                                                          "Index", "Messages", new { id = item.UserFrom.Id }, new { @class = "nav-link waves-effect text-white" })
+                                    <td class="pt-0 pb-0 mb-0 ">
+                                        <p class="mb-1 text-left btn p-0 mb-0 preview-text">
+                                            <strong class="d-inline-block text-truncate" style="max-width: calc(100vh - 0px)">
+                                                @item.Text
                                             </strong>
                                         </p>
                                     </td>

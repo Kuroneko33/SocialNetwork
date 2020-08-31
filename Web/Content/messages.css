@@ -19,3 +19,13 @@
     opacity: 0.8 !important;
     cursor: pointer;
 }
+
+strong {
+    color: lightgray;
+}
+
+p.preview-text {
+    white-space: nowrap !important; /* Запрещаем перенос строк */
+    overflow: hidden !important; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis !important; /* Добавляем многоточие */
+}

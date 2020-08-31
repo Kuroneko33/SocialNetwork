@@ -4,45 +4,91 @@
     ViewBag.Title = "Мои сообщения";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<table>
-    @{
-        int userId = 0;
-        try
-        {
-            userId = (int)Membership.GetUser().ProviderUserKey;
-        }
-        catch (Exception)
-        {
-        }
-    }
-    <tr>
-        <td>От кого</td>
-        <td>Когда</td>
-        <td>Текст</td>
-    </tr>
-    @foreach (MessagesViewModel message in Model)
+
+<link rel="stylesheet" type="text/css" href="~/Content/chat.css">
+
+@{
+    int userId = 0;
+    try
     {
-        if (message.CreatedDate == new DateTime(2020, 8, 18))
-        {
-            continue;
-        }
-        <tr>
-            <td>@message.UserFrom.LastName @message.UserFrom.FirstName</td>
-            <td>@TimeZoneInfo.ConvertTimeFromUtc(message.CreatedDate, TimeZoneInfo.Local)</td>
-            <td>@message.Text</td>
-        </tr>
+        userId = (int)Membership.GetUser().ProviderUserKey;
     }
-</table>
-@using (Html.BeginForm("NewMessage", "Messages", FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    <p>
-        Введите текст сообщения:
-        <br />
-        @Html.HiddenFor(x => x[0].UserFromId)
-        @Html.HiddenFor(x => x[0].UserToId)
-        @Html.HiddenFor(x => x[0].CreatedDate)
-        @Html.TextAreaFor(x => x[0].Text)
-        @Html.ValidationMessageFor(x => x[0].Text)
-    </p>
-    <input type="submit" value="Отправить" />
+    catch (Exception)
+    {
+    }
 }
+
+<div class="img-thumbnail m-3">
+    <div class="container overflow-auto p-4" style="max-height: calc(100vh - 180px) !important;" id="scroll">
+        @foreach (MessagesViewModel message in Model)
+        {
+            if (message.CreatedDate == new DateTime(2020, 8, 18))
+            {
+                continue;
+            }
+
+            if (message.UserFrom.Id != userId)
+            {
+                <div class="chat-container">
+                    <a onclick="return location.href='@Url.Action("Index", "Home", new { id = message.UserFrom.Id })'">
+                        <img src="@Url.Content(message.UserFrom.Photo)" alt="@message.UserFrom.FirstName @message.UserFrom.LastName" class="avatar" style="width:100%;">
+                    </a>
+                    <p class="word">@message.Text</p>
+                    <span class="time-right">@TimeZoneInfo.ConvertTimeFromUtc(message.CreatedDate, TimeZoneInfo.Local)</span>
+                </div>
+            }
+            else
+            {
+                <div class="chat-container darker">
+                    <a onclick="return location.href='@Url.Action("Index", "Home", new { id = message.UserFrom.Id })'">
+                        <img src="@Url.Content(message.UserFrom.Photo)" alt="@message.UserFrom.FirstName @message.UserFrom.LastName" class="right avatar" style="width:100%;">
+                    </a>
+                    <p class="word">@message.Text</p>
+                    <span class="time-left">@TimeZoneInfo.ConvertTimeFromUtc(message.CreatedDate, TimeZoneInfo.Local)</span>
+                </div>
+            }
+        }
+    </div>
+    <hr />
+    <div>
+        @using (Html.BeginForm("NewMessage", "Messages", FormMethod.Post, new { @class = "p-3"}))
+        {
+            <div class="row input-group">
+                @Html.HiddenFor(x => x[0].UserFromId)
+                @Html.HiddenFor(x => x[0].UserToId)
+                @Html.HiddenFor(x => x[0].CreatedDate)
+                @Html.TextAreaFor(x => x[0].Text, new { @class = "form-control", @id = "area" })
+                @Html.ValidationMessageFor(x => x[0].Text)
+                <input type="submit" value="&#10148;" class="btn btn-primary p-1" style="width: 64px;"/>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        document.getElementById('scroll').scrollTop = 9999;
+
+        if ($("#area").val() == '') {
+            $(".btn").prop('disabled', true); 
+        } else {
+            $(".btn").prop('disabled', false); 
+        }
+    }
+
+    $("#area").change(function(){
+        if ($("#area").val() == '' ) {
+            $(".btn").prop('disabled', true); 
+        } else {
+             $(".btn").prop('disabled', false); 
+        }
+    });
+
+    $("#area").keyup(function () {
+        if ($("#area").val() == '' ) {
+            $(".btn").prop('disabled', true); 
+        } else {
+             $(".btn").prop('disabled', false); 
+        }
+    });
+</script>
