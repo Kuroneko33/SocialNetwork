@@ -264,6 +264,7 @@
     <Content Include="Content\messages.css" />
     <Content Include="Content\opl.css" />
     <Content Include="Content\page.css" />
+    <Content Include="Content\search.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

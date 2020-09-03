@@ -1,6 +1,5 @@
 ﻿.chat-container {
-    border: 2px solid #dedede;
-    background-color: #f1f1f1;
+    background-color: rgb(31, 29, 40);
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
@@ -8,7 +7,7 @@
 
 .darker {
     border-color: #ccc;
-    background-color: #ddd;
+    background-color: rgb(95, 73, 156);
 }
 
 .chat-container::after {

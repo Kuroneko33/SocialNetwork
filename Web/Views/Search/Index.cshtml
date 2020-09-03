@@ -5,12 +5,62 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Поиск пользователей</h2>
+    <link rel="stylesheet" type="text/css" href="~/Content/search.css">
+
+<div class="container py-3 overflow-auto">
+    <div class="img-thumbnail mr-3">
+        <h6 class="display-4 text-warning">Поиск пользователей</h6>
+
+        <h3 class="text-white">Друзья:</h3>
+        <table class="table table-borderless">
+            <tbody>
+                <tr class="table-bg">
+                    <td width="10%" class="align-middle">
+                        <img class="avatar" src="" />
+                    </td>
+                    <td class="align-middle text-white">
+                        <strong>Антон Левизарович</strong>
+                    </td>
+                    <td class="align-middle">
+                        <div class="btn-group btn-block" role="group">
+                            <button type="button" class="btn btn-outline-success">Написать</button>
+                            <button type="button" class="btn btn-outline-danger" onclick="reload_page()">Удалить</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 class="text-white">Другие пользователи:</h3>
+        <table class="table table-borderless">
+            <tbody>
+                <tr class="table-bg">
+                    <td width="10%" class="align-middle">
+                        <img class="avatar" src="" />
+                    </td>
+                    <td class="align-middle text-white">
+                        <strong>Какой-то другой Антон</strong>
+                    </td>
+                    <td class="align-middle">
+                        <button type="button" class="btn btn-outline-primary btn-block" onclick="add_friend()">Добавить</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function reload_page() {
+        window.location.reload();
+    }
+</script>
+
+
 @if (Model != null && Model.Any())
 {
-    <p>Результаты поиска</p>
+
     foreach (User user in Model)
     {
-        <div>@Html.ActionLink(user.LastName + " " + user.FirstName + " " + user.MiddleName, "Index", "Home", new { id = user.Id}, null)</div>
+        <div>@Html.ActionLink(user.LastName + " " + user.FirstName + " " + user.MiddleName, "Index", "Home", new { id = user.Id }, null)</div>
     }
 }
+ 

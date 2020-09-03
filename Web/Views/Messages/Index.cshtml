@@ -33,7 +33,7 @@
                     <a onclick="return location.href='@Url.Action("Index", "Home", new { id = message.UserFrom.Id })'">
                         <img src="@Url.Content(message.UserFrom.Photo)" alt="@message.UserFrom.FirstName @message.UserFrom.LastName" class="avatar" style="width:100%;">
                     </a>
-                    <p class="word">@message.Text</p>
+                    <p class="word text-muted">@message.Text</p>
                     <span class="time-right">@TimeZoneInfo.ConvertTimeFromUtc(message.CreatedDate, TimeZoneInfo.Local)</span>
                 </div>
             }
@@ -41,10 +41,10 @@
             {
                 <div class="chat-container darker">
                     <a onclick="return location.href='@Url.Action("Index", "Home", new { id = message.UserFrom.Id })'">
-                        <img src="@Url.Content(message.UserFrom.Photo)" alt="@message.UserFrom.FirstName @message.UserFrom.LastName" class="right avatar" style="width:100%;">
+                        <img src="@Url.Content(message.UserFrom.Photo)" alt="@message.UserFrom.FirstName @message.UserFrom.LastName" class="left avatar" style="width:100%;">
                     </a>
-                    <p class="word">@message.Text</p>
-                    <span class="time-left">@TimeZoneInfo.ConvertTimeFromUtc(message.CreatedDate, TimeZoneInfo.Local)</span>
+                    <p class="word text-light">@message.Text</p>
+                    <span class="time-right">@TimeZoneInfo.ConvertTimeFromUtc(message.CreatedDate, TimeZoneInfo.Local)</span>
                 </div>
             }
         }
