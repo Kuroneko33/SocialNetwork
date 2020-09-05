@@ -22,7 +22,7 @@
     <div class="container overflow-auto p-4" style="max-height: calc(100vh - 180px) !important;" id="scroll">
         @foreach (MessagesViewModel message in Model)
         {
-            if (message.CreatedDate == new DateTime(2020, 8, 18))
+            if (message.UserFrom.Id == -1)
             {
                 continue;
             }

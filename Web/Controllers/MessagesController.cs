@@ -76,7 +76,7 @@ namespace Web.Controllers
                 {
                     UserToId = id,
                     UserFromId = GetCurrentUserId(),
-                    CreatedDate = new DateTime(2020, 8, 18),
+                    UserFrom = new User() { Id = -1 }
                 });
             TempData["id"] = id;
             return View(models);
