@@ -78,12 +78,22 @@ namespace Web.Controllers
         //Подача заявки
         public ActionResult AddFriendRequest(int id)
         {
-            FriendRequest friendRequest = new FriendRequest
+            if (!dataManager.Friends.UsersAreFriends(id, GetCurrentUserId()) && !dataManager.Friends.UsersAreFriends(GetCurrentUserId(), id))
             {
-                UserId = id,
-                PossibleFiendId = GetCurrentUserId()
-            };
-            dataManager.FriendRequests.AddFriendRequest(friendRequest);
+                if (!dataManager.FriendRequests.RequestIsSent(id, GetCurrentUserId()) && !dataManager.FriendRequests.RequestIsSent(GetCurrentUserId(), id))
+                {
+                    FriendRequest friendRequest = new FriendRequest
+                    {
+                        UserId = id,
+                        PossibleFiendId = GetCurrentUserId()
+                    };
+                    dataManager.FriendRequests.AddFriendRequest(friendRequest);
+                }
+                else
+                {
+                    ConfirmFriendRequest(id);
+                }
+            }
 
             return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
         }

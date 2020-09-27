@@ -41,6 +41,8 @@ namespace Web.Controllers
                 }
             }
             ModelState.AddModelError("", "Неудачная попытка входа на сайт");
+            model.Register = new RegisterViewModel();
+            model.Login = new LoginViewModel();
             return View(model);
         }
 

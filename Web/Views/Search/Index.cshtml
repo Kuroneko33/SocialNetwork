@@ -1,11 +1,12 @@
 ﻿@using Domain.Entities
-@model IEnumerable<User>
+@using Web.Models
+@model SearchViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <link rel="stylesheet" type="text/css" href="~/Content/search.css">
+<link rel="stylesheet" type="text/css" href="~/Content/search.css">
 
 <div class="container py-3 overflow-auto">
     <div class="img-thumbnail mr-3">
@@ -14,40 +15,125 @@
         <h3 class="text-white">Друзья:</h3>
         <table class="table table-borderless">
             <tbody>
-
-                <tr class="table-bg">
-                    <td width="10%" class="align-middle">
-                        <img class="avatar" src="" />
-                    </td>
-                    <td class="align-middle text-white">
-                        <strong>Антон Левизарович</strong>
-                    </td>
-                    <td class="align-middle">
-                        <div class="btn-group btn-block" role="group">
-                            <button type="button" class="btn btn-outline-success">Написать</button>
-                            <button type="button" class="btn btn-outline-danger" onclick="reload_page()">Удалить</button>
-                        </div>
-                    </td>
-                </tr>
-
+                @try
+                {
+                    foreach (User user in Model.Friends)
+                    {
+                        if (user.Photo == null)
+                        {
+                            user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                        }
+                        <tr class="table-bg">
+                            <td width="10%" class="align-middle">
+                                <img class="avatar" src="@Url.Content(user.Photo)" />
+                            </td>
+                            <td class="align-middle text-white">
+                                <strong>
+                                    @Html.ActionLink(user.FirstName + " " + user.LastName,
+                                                  "Index", "Home", new { id = user.Id }, new { @class = "nav-link waves-effect text-white" })
+                                </strong>
+                            </td>
+                            <td class="align-middle">
+                                <div class="btn-group btn-block" role="group">
+                                    @Html.ActionLink("Написать", "Index", "Messages", new { id = user.Id }, new { @class = "btn btn-outline-success" })
+                                    @Html.ActionLink("Удалить", "DeleteFriend", "Friends", new { id = user.Id }, new { @class = "btn btn-outline-danger" })
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                catch (Exception) { }
             </tbody>
         </table>
+        @if (Model.RequestsOut.Count > 0 || Model.RequestsIn.Count > 0)
+        {
+            <h3 class="text-white">Заявки:</h3>
+            <table class="table table-borderless">
+                <tbody>
+                    @try
+                    {
+                        foreach (User user in Model.RequestsOut)
+                        {
+                            if (user.Photo == null)
+                            {
+                                user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                            }
+                            <tr class="table-bg">
+                                <td width="10%" class="align-middle">
+                                    <img class="avatar" src="@Url.Content(user.Photo)" />
+                                </td>
+                                <td class="align-middle text-white">
+                                    <strong>
+                                        @Html.ActionLink(user.FirstName + " " + user.LastName,
+                                                      "Index", "Home", new { id = user.Id }, new { @class = "nav-link waves-effect text-white" })
+                                    </strong>
+                                </td>
+                                <td class="align-middle">
+                                    @Html.ActionLink("Отменить", "CancelFriendRequest", "Friends", new { id = user.Id }, new { @class = "btn btn-outline-danger btn-block" })
+                                </td>
+                            </tr>
+                        }
+                    }
+                    catch (Exception) { }
+                    @try
+                    {
+                        foreach (User user in Model.RequestsIn)
+                        {
+                            if (user.Photo == null)
+                            {
+                                user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                            }
+                            <tr class="table-bg">
+                                <td width="10%" class="align-middle">
+                                    <img class="avatar" src="@Url.Content(user.Photo)" />
+                                </td>
+                                <td class="align-middle text-white">
+                                    <strong>
+                                        @Html.ActionLink(user.FirstName + " " + user.LastName,
+                                                      "Index", "Home", new { id = user.Id }, new { @class = "nav-link waves-effect text-white" })
+                                    </strong>
+                                </td>
+                                <td class="align-middle">
+                                    <div class="btn-group btn-block" role="group">
+                                        @Html.ActionLink("Принять", "ConfirmFriendRequest", "Friends", new { id = user.Id }, new { @class = "btn btn-outline-success" })
+                                        @Html.ActionLink("Отклонить", "DisagreeFriendRequest", "Friends", new { id = user.Id }, new { @class = "btn btn-outline-danger" })
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    catch (Exception) { }
+                </tbody>
+            </table>
+        }
         <h3 class="text-white">Другие пользователи:</h3>
         <table class="table table-borderless">
             <tbody>
-
-                <tr class="table-bg">
-                    <td width="10%" class="align-middle">
-                        <img class="avatar" src="" />
-                    </td>
-                    <td class="align-middle text-white">
-                        <strong>Какой-то другой Антон</strong>
-                    </td>
-                    <td class="align-middle">
-                        <button type="button" class="btn btn-outline-primary btn-block" onclick="add_friend()">Добавить</button>
-                    </td>
-                </tr>
-
+                @try
+                {
+                    foreach (User user in Model.Users)
+                    {
+                        if (user.Photo == null)
+                        {
+                            user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                        }
+                        <tr class="table-bg">
+                            <td width="10%" class="align-middle">
+                                <img class="avatar" src="@Url.Content(user.Photo)" />
+                            </td>
+                            <td class="align-middle text-white">
+                                <strong>
+                                    @Html.ActionLink(user.FirstName + " " + user.LastName,
+                                                  "Index", "Home", new { id = user.Id }, new { @class = "nav-link waves-effect text-white" })
+                                </strong>
+                            </td>
+                            <td class="align-middle">
+                                @Html.ActionLink("Добавить", "AddFriendRequest", "Friends", new { id = user.Id }, new { @class = "btn btn-outline-primary btn-block" })
+                            </td>
+                        </tr>
+                    }
+                }
+                catch (Exception) { }
             </tbody>
         </table>
     </div>
@@ -57,14 +143,3 @@
         window.location.reload();
     }
 </script>
-
-
-@if (Model != null && Model.Any())
-{
-
-    foreach (User user in Model)
-    {
-        <div>@Html.ActionLink(user.LastName + " " + user.FirstName + " " + user.MiddleName, "Index", "Home", new { id = user.Id }, null)</div>
-    }
-}
- 

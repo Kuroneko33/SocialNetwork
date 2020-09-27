@@ -3,6 +3,8 @@ using Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
+using Web.Models;
 
 namespace Web.Controllers
 {
@@ -20,12 +22,12 @@ namespace Web.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Index(string search)
         {
-            //переделать
             string[] words = search.Split(new char[] { ' ' });
             List<User> modelList = new List<User>();
+            SearchViewModel model = new SearchViewModel();
 
             foreach (var word in words)
             {
@@ -37,15 +39,36 @@ namespace Web.Controllers
                     x.MiddleName.ToLowerInvariant().StartsWith(word.ToLowerInvariant()));
                 foreach (var item in tempModel)
                 {
-                    if (!modelList.Contains(item))
+                    if (dataManager.Friends.UsersAreFriends((int)Membership.GetUser().ProviderUserKey, item.Id))
                     {
-                        modelList.Add(item);
+                        if (!model.Friends.Contains(item))
+                        {
+                            model.Friends.Add(item);
+                        }
+                    }
+                    else if (dataManager.FriendRequests.RequestIsSent((int)Membership.GetUser().ProviderUserKey, item.Id))
+                    {
+                        if (!model.RequestsIn.Contains(item))
+                        {
+                            model.RequestsIn.Add(item);
+                        }
+                    }
+                    else if (dataManager.FriendRequests.RequestIsSent(item.Id, (int)Membership.GetUser().ProviderUserKey))
+                    {
+                        if (!model.RequestsOut.Contains(item))
+                        {
+                            model.RequestsOut.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        if (!model.Users.Contains(item) && (int)Membership.GetUser().ProviderUserKey!=item.Id)
+                        {
+                            model.Users.Add(item);
+                        }
                     }
                 }
             }
-
-            IEnumerable<User> model = modelList;
-
             return View(model);
         }
     }
