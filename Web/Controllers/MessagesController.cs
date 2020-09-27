@@ -83,7 +83,7 @@ namespace Web.Controllers
 
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult NewMessage(List<MessagesViewModel> messages)
         {
             MessagesViewModel message = messages[0];
@@ -106,9 +106,9 @@ namespace Web.Controllers
                         Text = message.Text
                     });
                 TempData["id"] = message.UserToId;
-                return RedirectToAction("Index", "Messages");
+                return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
             }
-            return RedirectToAction("Index", "Messages");
+            return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
         }
     }
 }

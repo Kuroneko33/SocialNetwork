@@ -51,7 +51,7 @@
     </div>
     <hr />
     <div>
-        @using (Html.BeginForm("NewMessage", "Messages", FormMethod.Post, new { @class = "p-3"}))
+        @using (Html.BeginForm("NewMessage", "Messages", FormMethod.Get, new { @class = "p-3" }))
         {
             <div class="row input-group">
                 @Html.HiddenFor(x => x[0].UserFromId)
@@ -59,7 +59,7 @@
                 @Html.HiddenFor(x => x[0].CreatedDate)
                 @Html.TextAreaFor(x => x[0].Text, new { @class = "form-control", @id = "area" })
                 @Html.ValidationMessageFor(x => x[0].Text)
-                <input type="submit" value="&#10148;" class="btn btn-primary p-1" style="width: 64px;"/>
+                <input type="submit" id="sendnewmessage" value="&#10148;" class="btn btn-primary p-1" style="width: 64px;" />
             </div>
         }
     </div>
@@ -70,25 +70,47 @@
         document.getElementById('scroll').scrollTop = 9999;
 
         if ($("#area").val() == '') {
-            $(".btn").prop('disabled', true); 
+            $(".btn").prop('disabled', true);
         } else {
-            $(".btn").prop('disabled', false); 
+            $(".btn").prop('disabled', false);
         }
     }
 
-    $("#area").change(function(){
-        if ($("#area").val() == '' ) {
-            $(".btn").prop('disabled', true); 
+    $("#area").change(function () {
+        if ($("#area").val() == '') {
+            $(".btn").prop('disabled', true);
         } else {
-             $(".btn").prop('disabled', false); 
+            $(".btn").prop('disabled', false);
         }
     });
 
     $("#area").keyup(function () {
-        if ($("#area").val() == '' ) {
-            $(".btn").prop('disabled', true); 
+        if ($("#area").val() == '') {
+            $(".btn").prop('disabled', true);
         } else {
-             $(".btn").prop('disabled', false); 
+            $(".btn").prop('disabled', false);
         }
     });
 </script>
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function () {
+            var chat = $.connection.updateHub;
+            chat.client.updatePage = function () {
+                window.location.reload();
+            };
+            $.connection.hub.start().done(function () {
+                if (localStorage.getItem('check') == 1) {
+                    localStorage.setItem('check', 0);
+                    chat.server.update();
+                }
+                $('#sendnewmessage').click(function () {
+                    localStorage.setItem('check', 1);
+                });
+            });
+        });
+    </script>
+}
