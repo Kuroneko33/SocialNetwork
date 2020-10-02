@@ -53,9 +53,11 @@
                         </div>
                         <div class="form-group">
                             <label class="text-white font-weight-bold" for="BDate">Дата рождения</label><br />
-                            <select id="BYear" name="BYear" onchange="calcDays()"></select>
-                            <select id="BMonth" name="BMonth" onchange="calcDays()"></select>
-                            <select id="BDay" name="BDay"></select>
+                            <div class="row justify-content-center">
+                                <select id="BYear" name="BYear" onchange="calcDays()" class="custom-select col-3 m-2 bg-secondary text-white"></select>
+                                <select id="BMonth" name="BMonth" onchange="calcDays()" class="custom-select col-3 m-2 bg-secondary text-white"></select>
+                                <select id="BDay" name="BDay" class="custom-select col-3 m-2 bg-secondary text-white"></select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="text-white font-weight-bold" for="Phone">Телефон</label>

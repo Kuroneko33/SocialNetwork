@@ -99,6 +99,7 @@
         let search = document.getElementById('search');
         search.onkeydown = function (e) {
             if (e.keyCode == 13) {
+                //localStorage.setItem('lastTab', null);
                 document.redirect.submit();
             }
         }
