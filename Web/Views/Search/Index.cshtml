@@ -11,40 +11,42 @@
 <div class="container py-3 overflow-auto">
     <div class="img-thumbnail mr-3">
         <h6 class="display-4 text-warning">Поиск пользователей</h6>
-
-        <h3 class="text-white">Друзья:</h3>
-        <table class="table table-borderless">
-            <tbody>
-                @try
-                {
-                    foreach (User user in Model.Friends)
+        @if (Model.Friends.Count > 0)
+        {
+            <h3 class="text-white">Друзья:</h3>
+            <table class="table table-borderless">
+                <tbody>
+                    @try
                     {
-                        if (user.Photo == null)
+                        foreach (User user in Model.Friends)
                         {
-                            user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                            if (user.Photo == null)
+                            {
+                                user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                            }
+                            <tr class="table-bg">
+                                <td width="10%" class="align-middle">
+                                    <img class="avatar" src="@Url.Content(user.Photo)" />
+                                </td>
+                                <td class="align-middle text-white">
+                                    <strong>
+                                        @Html.ActionLink(user.FirstName + " " + user.LastName,
+                                           "Index", "Home", new { id = user.Id }, new { @class = "nav-link waves-effect text-white" })
+                                    </strong>
+                                </td>
+                                <td class="align-middle">
+                                    <div class="btn-group btn-block" role="group">
+                                        @Html.ActionLink("Написать", "Index", "Messages", new { id = user.Id }, new { @class = "btn btn-outline-success" })
+                                        @Html.ActionLink("Удалить", "DeleteFriend", "Friends", new { id = user.Id }, new { @class = "btn btn-outline-danger" })
+                                    </div>
+                                </td>
+                            </tr>
                         }
-                        <tr class="table-bg">
-                            <td width="10%" class="align-middle">
-                                <img class="avatar" src="@Url.Content(user.Photo)" />
-                            </td>
-                            <td class="align-middle text-white">
-                                <strong>
-                                    @Html.ActionLink(user.FirstName + " " + user.LastName,
-                                                  "Index", "Home", new { id = user.Id }, new { @class = "nav-link waves-effect text-white" })
-                                </strong>
-                            </td>
-                            <td class="align-middle">
-                                <div class="btn-group btn-block" role="group">
-                                    @Html.ActionLink("Написать", "Index", "Messages", new { id = user.Id }, new { @class = "btn btn-outline-success" })
-                                    @Html.ActionLink("Удалить", "DeleteFriend", "Friends", new { id = user.Id }, new { @class = "btn btn-outline-danger" })
-                                </div>
-                            </td>
-                        </tr>
                     }
-                }
-                catch (Exception) { }
-            </tbody>
-        </table>
+                    catch (Exception) { }
+                </tbody>
+            </table>
+        }
         @if (Model.RequestsOut.Count > 0 || Model.RequestsIn.Count > 0)
         {
             <h3 class="text-white">Заявки:</h3>
@@ -106,36 +108,39 @@
                 </tbody>
             </table>
         }
-        <h3 class="text-white">Другие пользователи:</h3>
-        <table class="table table-borderless">
-            <tbody>
-                @try
-                {
-                    foreach (User user in Model.Users)
+        @if (Model.Users.Count > 0)
+        {
+            <h3 class="text-white">Другие пользователи:</h3>
+            <table class="table table-borderless">
+                <tbody>
+                    @try
                     {
-                        if (user.Photo == null)
+                        foreach (User user in Model.Users)
                         {
-                            user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                            if (user.Photo == null)
+                            {
+                                user.Photo = "~/Content/images/usersAvatars/noAvatar.png";
+                            }
+                            <tr class="table-bg">
+                                <td width="10%" class="align-middle">
+                                    <img class="avatar" src="@Url.Content(user.Photo)" />
+                                </td>
+                                <td class="align-middle text-white">
+                                    <strong>
+                                        @Html.ActionLink(user.FirstName + " " + user.LastName,
+                                                      "Index", "Home", new { id = user.Id }, new { @class = "nav-link waves-effect text-white" })
+                                    </strong>
+                                </td>
+                                <td class="align-middle">
+                                    @Html.ActionLink("Добавить", "AddFriendRequest", "Friends", new { id = user.Id }, new { @class = "btn btn-outline-primary btn-block" })
+                                </td>
+                            </tr>
                         }
-                        <tr class="table-bg">
-                            <td width="10%" class="align-middle">
-                                <img class="avatar" src="@Url.Content(user.Photo)" />
-                            </td>
-                            <td class="align-middle text-white">
-                                <strong>
-                                    @Html.ActionLink(user.FirstName + " " + user.LastName,
-                                                  "Index", "Home", new { id = user.Id }, new { @class = "nav-link waves-effect text-white" })
-                                </strong>
-                            </td>
-                            <td class="align-middle">
-                                @Html.ActionLink("Добавить", "AddFriendRequest", "Friends", new { id = user.Id }, new { @class = "btn btn-outline-primary btn-block" })
-                            </td>
-                        </tr>
                     }
-                }
-                catch (Exception) { }
-            </tbody>
-        </table>
+                    catch (Exception) { }
+                </tbody>
+            </table>
+        }
     </div>
 </div>
 <script>
